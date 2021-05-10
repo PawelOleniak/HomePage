@@ -1,7 +1,8 @@
 import logo from './logo.svg';
-import GlobalStyle from './index.css';
-import "App.css"
-import { Navigation, Wrapper }  from "components";
+import React, { Fragment } from 'react';
+import GlobalStyle from './AppCss';
+import "./i18n/i18n"
+import { Navigation, Wrapper, LoadingIndicator, Button }  from "components";
 import {ThemeProvider} from "styled-components";
 import  theme          from "utils/theme";
 import {
@@ -9,12 +10,14 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 
 
 function App() {
+  const { i18n } = useTranslation();
+
   return (
-    <ThemeProvider theme={theme}>
+    <Fragment>
       <GlobalStyle/>
       <Router>
         <Navigation items={[
@@ -25,8 +28,8 @@ function App() {
         ]}
         Languages={(
             <div>
-              <button>pl</button>
-              <button>en</button>
+              <Button primary variant="regular" onClick={()=>i18n.changeLanguage("pl")}>pl</Button>
+              <Button primary variant="regular" onClick={()=>i18n.changeLanguage("en")}>en</Button>
             </div>
         )}/>
         <Wrapper>
@@ -49,8 +52,18 @@ function App() {
       <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-    </ThemeProvider>
+    </Fragment>
   );
 }
 
-export default App;
+
+function RootApp(){
+  return(
+    <ThemeProvider theme={theme}>
+      <React.Suspense fallback={<LoadingIndicator/>}>
+        <App/>
+      </React.Suspense>
+    </ThemeProvider>
+  );
+};
+export default RootApp;

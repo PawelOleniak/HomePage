@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     spacing : {
         sm: 5,
@@ -20,7 +21,7 @@ export default {
             normal: "rgb(219,110,149)",
         },
         react_default: {
-            normal:"rgb(219,110,149)",
+            normal:"rgb(40,44,52)",
         },
     },
 }

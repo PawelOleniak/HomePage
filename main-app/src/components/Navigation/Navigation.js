@@ -1,17 +1,20 @@
 import React            from "react";
-import { Header, List, NavigationWrapper } from "./NavigationCss";
-import { Link }         from "react-router-dom";
+import { Header, List, NavigationWrapper, NavLi } from "./NavigationCss";
 import PropTypes        from "prop-types";
+import { useTranslation } from "react-i18next";
+
+import { Button }         from "components"
 
 function Navigation({ items = [], Languages }){
+    const { t } = useTranslation();
     return(
         <Header>
             <NavigationWrapper>
                 <List>
                     {items.map(item => (
-                        <li key={item.to}>
-                            <Link to={item.to}>{item.content}</Link>
-                        </li>
+                        <NavLi key={item.to}>
+                            <Button to={item.to}>{t(item.content)}</Button>
+                        </NavLi>
                     ))}
                 </List>
                 {Languages}
