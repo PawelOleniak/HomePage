@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import { normalize }         from "styled-normalize";
-import "App.css"
 
 export default createGlobalStyle`
 ${normalize}

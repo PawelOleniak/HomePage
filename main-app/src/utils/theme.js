@@ -21,7 +21,8 @@ export default {
             normal: "rgb(219,110,149)",
         },
         react_default: {
-            normal:"rgb(40,44,52)",
+            background:"rgb(40,44,52)",
+            logo:      "rgb(0,200,252)"
         },
     },
 }
