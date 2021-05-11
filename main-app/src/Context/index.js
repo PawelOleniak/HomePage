@@ -8,7 +8,6 @@ export const Context = createContext();
 const Provider = ({ children }) => {
 
   const [isDay, setIsDay] = useState(false);
-  //const [a, setIsDay] = useState(false);
 
   const checkTime = () => {
 
@@ -16,15 +15,15 @@ const Provider = ({ children }) => {
          const sunRise=getSunrise(position.coords.latitude, position.coords.longitude).getTime();
          const sunSet=getSunset(position.coords.latitude, position.coords.longitude).getTime();
 
-
          const currentTime = new Date().getTime();
+
         setIsDay(currentTime > sunRise && currentTime < sunSet ? true : false);
+
       });
   };
   useEffect(() => {
 
     checkTime();
-
   }, []);
 
 const ContextValue = {

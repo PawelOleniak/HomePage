@@ -7,7 +7,6 @@ import Timer from "./Timer";
 
 
 function ClockBox({isDay}){
-
     return(
     <Fragment>
         <IMG isDay={isDay}>

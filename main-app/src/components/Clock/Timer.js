@@ -8,7 +8,7 @@ function Timer(){
     let ScreenWidth = window.innerWidth;
     useEffect(() => {
         new CircleType(circle.current).radius((65-8000/(ScreenWidth))).dir(-1);
-      }, [time]);
+      }, [time,ScreenWidth]);
 
     return(
         <TimerText ref={circle}>{time.toLocaleTimeString()}</TimerText>
@@ -32,7 +32,7 @@ const Time = (current) => {
       return function clear() {
           clearInterval(timer);
         };
-     });
+     },[]);
 
     function tick() {
       setDate(new Date());

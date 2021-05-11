@@ -50,10 +50,10 @@ box-shadow: 23px 25px 60px 30px ${({isDay}) => isDay ? 'orange' :'blue'};
 
 img{
 
-        width: calc(8px + ${({isDay}) => isDay ? '4vw' :'1.9vw'});
+        width: calc(8px + ${({isDay}) => isDay ? '3.2vw' :'1.9vw'});
         position: absolute;
         top:${({isDay}) => isDay ? '5px' :'15px'};
-        left:calc(22px - ${({isDay}) => isDay ? '1vw' :'1vw'});
+        left:calc(22px - ${({isDay}) => isDay ? '1.7vw' :'1vw'});
         animation: ${({isDay}) => isDay ? 'spin' : 'cradle'} infinite 5s linear;
     }
     @keyframes cradle {
