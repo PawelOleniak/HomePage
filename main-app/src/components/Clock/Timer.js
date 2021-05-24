@@ -4,31 +4,25 @@ import CircleType from 'circletype';
 
 function Timer(){
     const time = Time(new Date());
-    const circle = useRef();
-    let ScreenWidth = window.innerWidth;
-    useEffect(() => {
-        new CircleType(circle.current).radius((65-8000/(ScreenWidth))).dir(-1);
-      }, [time,ScreenWidth]);
-
     return(
-        <TimerText ref={circle}>{time.toLocaleTimeString()}</TimerText>
+        <TimerText >{time.toLocaleTimeString().substring(0,5)}</TimerText>
     )
 }
 const TimerText=styled.h2`
 position:fixed;
 z-index:15;
-margin-top:calc(17px + 1.1vw);
+margin-top:calc(32px + 1.1vw);
 font-size:calc(0.8vw + 10px);
 background: transparent;
 font-family: "arial";
-left: calc(49vw - 7px);
+left: calc(49vw - 30px);
 `
 
 const Time = (current) => {
     const [date, setDate] = React.useState(current);
 
     React.useEffect(() => {
-      let timer = setInterval( () => tick(), 1000 );
+      let timer = setInterval( () => tick(), 10000 );
       return function clear() {
           clearInterval(timer);
         };
