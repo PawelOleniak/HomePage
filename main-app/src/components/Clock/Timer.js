@@ -1,6 +1,5 @@
-import React, { useEffect, useRef }  from "react";
+import React, { useState, useEffect }  from "react";
 import styled from "styled-components"
-import CircleType from 'circletype';
 
 function Timer(){
     const time = Time(new Date());
@@ -19,9 +18,9 @@ left: calc(49vw - 30px);
 `
 
 const Time = (current) => {
-    const [date, setDate] = React.useState(current);
+    const [date, setDate] = useState(current);
 
-    React.useEffect(() => {
+    useEffect(() => {
       let timer = setInterval( () => tick(), 10000 );
       return function clear() {
           clearInterval(timer);

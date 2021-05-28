@@ -3,6 +3,13 @@ import {
     BUDGET_GET_REQUEST,
     BUDGET_GET_SUCCESS,
     BUDGET_GET_FALIURE,
+
+
+    BUDGETED_CATEGORIES_GET_REQUEST,
+    BUDGETED_CATEGORIES_GET_SUCCESS,
+    BUDGETED_CATEGORIES_GET_FALIURE,
+
+
     LOADING_STATES
 } from "data/constants";
 
@@ -40,7 +47,33 @@ function budget(state=initialState,action) {
                 budget:{},
                 loadingState: newLoadingState
             }
+
+
+
+            case BUDGETED_CATEGORIES_GET_SUCCESS:
+            delete newLoadingState.BUDGETED_CATEGORIES_GET_REQUEST
+            return{
+                ...state,
+                budgetedCategories:action.payload,
+                loadingState: newLoadingState
+            }
+        case BUDGETED_CATEGORIES_GET_REQUEST:
+            return{
+                ...state,
+                loadingState:{
+                    ...state.loadingState,
+                    [action.type]: LOADING_STATES.LOADING
+                }
+            }
+        case BUDGETED_CATEGORIES_GET_FALIURE:
+            delete newLoadingState.BUDGETED_CATEGORIES_GET_REQUEST;
+            return{
+                ...state,
+                budgetedCategories:{},
+                loadingState: newLoadingState
+            }
         default:
+            console.log("default")
             return state
     }
 }
