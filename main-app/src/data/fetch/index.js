@@ -1,5 +1,8 @@
 import * as budget from "./budget.fetch";
+import * as common from "./common.fetch";
 
-export default {
+const bud = {
     budget,
+    common
 }
+export default bud;

@@ -5,7 +5,6 @@ export default function promiseMiddleware() {
         if(!promise || typeof promise.then !== "function"){
             return next(action);
         }
-        console.log(type)
         const SUCCESS= `${type}_SUCCESS`
         const REQUEST= `${type}_REQUEST`
         const FALIURE= `${type}_FALIURE`

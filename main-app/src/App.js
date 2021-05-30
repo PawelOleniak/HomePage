@@ -1,9 +1,10 @@
-import React, { Fragment , useEffect } from 'react';
+import React, { Fragment } from 'react';
 import GlobalStyle from './AppCss';
 import "./i18n/i18n"
 import { Navigation, Wrapper, LoadingIndicator, Button }  from "components";
 import {ThemeProvider} from "styled-components";
-import  theme          from "utils/theme";
+import  theme from "utils/theme";
+import Budget from 'subpages/Budget';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,18 +12,16 @@ import {
 } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Provider from 'Context';
-import { connect } from "react-redux";
-import { fetchBudget, fetchBudgetedCategories } from "data/actions/budgetActions"
-function App({budget, fetchBudget, fetchBudgetedCategories }) {
+import { Home } from 'subpages/Home/Home';
+function App() {
   const { i18n } = useTranslation();
-  useEffect(() => {
-    fetchBudget(1)
-    fetchBudgetedCategories(1)
-  },[fetchBudget,fetchBudgetedCategories])
+
   return (
     <Fragment>
       <Provider>
+        <Home>
         <GlobalStyle/>
+
         <Router>
           <Navigation items={[
             { content: "Homepage", to:"/"},
@@ -42,7 +41,7 @@ function App({budget, fetchBudget, fetchBudgetedCategories }) {
                 Home
               </Route>
               <Route path="/budget">
-                Budget
+                <Budget/>
               </Route>
               <Route path="/schedule">
                 Schedule
@@ -53,27 +52,19 @@ function App({budget, fetchBudget, fetchBudgetedCategories }) {
             </Switch>
           </Wrapper>
         </Router>
+        </Home>
       </Provider>
     </Fragment>
   );
 }
 
-const ConnectedApp = connect(state=>{
-  return{
-    budget: state.budget.budget
 
-  }
-
-},{
-  fetchBudget,
-  fetchBudgetedCategories
-})(App)
 
 function RootApp(){
   return(
     <ThemeProvider theme={theme}>
       <React.Suspense fallback={<LoadingIndicator/>}>
-        < ConnectedApp />
+        <App />
       </React.Suspense>
     </ThemeProvider>
   );

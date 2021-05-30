@@ -1,5 +1,4 @@
 import {
-    ALL_CATEGORIES_GET,
     ALL_CATEGORIES_GET_REQUEST,
     ALL_CATEGORIES_GET_SUCCESS,
     ALL_CATEGORIES_GET_FALIURE,
@@ -8,9 +7,7 @@ import {
 
 
 const initialState = {
-    loadingState: {
-        ALL_CATEGORIES_GET_REQUEST: true
-    },
+    loadingState: null,
     allCategories: []
 }
 

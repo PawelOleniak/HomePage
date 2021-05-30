@@ -1,23 +1,18 @@
 import {
-    BUDGET_GET,
     BUDGET_GET_REQUEST,
     BUDGET_GET_SUCCESS,
     BUDGET_GET_FALIURE,
 
-
     BUDGETED_CATEGORIES_GET_REQUEST,
     BUDGETED_CATEGORIES_GET_SUCCESS,
     BUDGETED_CATEGORIES_GET_FALIURE,
-
 
     LOADING_STATES
 } from "data/constants";
 
 
 const initialState = {
-    loadingState: {
-        BUDGET_GET_REQUEST: true
-    },
+    loadingState: null,
     budget:{},
     budgetCategories:[]
 }
@@ -73,7 +68,6 @@ function budget(state=initialState,action) {
                 loadingState: newLoadingState
             }
         default:
-            console.log("default")
             return state
     }
 }
