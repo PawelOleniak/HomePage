@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const Clock=styled.section`
 
-box-shadow: 3px 1px 17px 9px lightgray;
+box-shadow: 3px 1px 12px 1px lightgray;
     content: '';
     display:block;
   position: fixed;
@@ -12,6 +12,7 @@ box-shadow: 3px 1px 17px 9px lightgray;
   left: calc(45vw - 45px);
   width: 6vw;
   height: 6vw;
+
   border: calc(0.9vw + 40px) solid ;
   border-color: transparent
                 ${({ theme }) => theme.colors.gray.light}
@@ -24,8 +25,8 @@ box-shadow: 3px 1px 17px 9px lightgray;
         content: "";
 
   position: fixed;
-  top: calc(-21.6px );
-  left: calc(-21.6px );
+  top: calc(-21.7px );
+  left: calc(-21.7px );
   width: 4.5vw;
   height: 4.5vw;
   border: calc(0.9vw + 20px) solid;
@@ -47,6 +48,7 @@ box-shadow: 23px 25px 60px 30px ${({isDay}) => isDay ? 'orange' :'blue'};
   position: fixed;
   top: 31px;
   left: calc(48.9vw - 30px);
+
 
 img{
 

@@ -1,18 +1,6 @@
-import  styled, {keyframes}  from "styled-components";
+import  styled  from "styled-components";
 
-const hourglass=keyframes`
-0% {
-    transform: rotate(0);
-    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-  }
-  50% {
-    transform: rotate(900deg);
-    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  100% {
-    transform: rotate(1800deg);
-  }
-`
+
 
 const Root = styled.div`
 
@@ -29,14 +17,26 @@ const Content = styled.div`
   height: 0;
 
   box-sizing: border-box;
-  border: 72px solid ${({theme}) => theme.colors.ReactDefault};
-  border-color: ${({theme}) => theme.colors.ReactDefault}
+  border: 72px solid ${({theme}) => theme.colors.react_default.logo};
+  border-color: ${({theme}) => theme.colors.react_default.logo}
                 transparent
-                ${({theme}) => theme.colors.ReactDefault}
+                ${({theme}) => theme.colors.react_default.logo}
                 transparent;
-  animation: ${hourglass} 1.2s infinite;
+  animation: hourglass 1.2s infinite;
 
-
+  @keyframes hourglass{
+      0% {
+        transform: rotate(0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+      }
+      50% {
+        transform: rotate(900deg);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+      100% {
+        transform: rotate(1800deg);
+      }
+}
 `
 
 
@@ -44,8 +44,6 @@ function LoadingIndicator(){
     return(
         <Root>
             <Content/>
-
-
         </Root>
 
     )

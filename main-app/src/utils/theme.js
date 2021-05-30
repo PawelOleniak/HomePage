@@ -10,6 +10,7 @@ export default {
             light: 'rgb(234,234,234)',
             normal: 'rgb(222,222,222)',
             dark:   'rgb(210,210,210)',
+            darker:'rgb(180,180,180)',
         },
         green:{
             normal: "rgb(85,155,0)",
