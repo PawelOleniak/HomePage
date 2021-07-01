@@ -2,16 +2,17 @@ import styled from "styled-components";
 
 export const Grid = styled.div`
     display: flex;
-    margin-top:40px;
+    margin-top:135px;
     section:nth-child(1){
-        flex:3;
-
+        flex:9;
+        margin-left: 4vw;
     }
     section:nth-child(2){
-        flex: 7;
+        flex: 2;
     }
     section:nth-child(3){
-        flex: 3;
+        flex: 17;
+        margin-right: 4vw;
     }
 
 

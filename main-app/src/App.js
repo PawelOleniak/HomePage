@@ -13,6 +13,10 @@ import {
 import { useTranslation } from "react-i18next";
 import Provider from 'Context';
 import { Home } from 'subpages/Home/Home';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 function App() {
   const { i18n } = useTranslation();
 

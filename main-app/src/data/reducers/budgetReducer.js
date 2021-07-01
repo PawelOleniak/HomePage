@@ -7,14 +7,20 @@ import {
     BUDGETED_CATEGORIES_GET_SUCCESS,
     BUDGETED_CATEGORIES_GET_FALIURE,
 
-    LOADING_STATES
+    BUDGET_TRANSACTION_ADD_REQUEST,
+    BUDGET_TRANSACTION_ADD_SUCCESS,
+
+    LOADING_STATES,
+    SET_SELECTED_CATEGORY_ID
 } from "data/constants";
+
 
 
 const initialState = {
     loadingState: null,
     budget:{},
-    budgetCategories:[]
+    budgetCategories:[],
+    SelectedCategoryId: undefined
 }
 
 function budget(state=initialState,action) {
@@ -67,6 +73,36 @@ function budget(state=initialState,action) {
                 budgetedCategories:{},
                 loadingState: newLoadingState
             }
+
+        case SET_SELECTED_CATEGORY_ID:
+            return{
+                ...state,
+                SelectedCategoryId: action.payload
+            }
+
+        case BUDGET_TRANSACTION_ADD_REQUEST:
+            return{
+                ...state,
+                loadingState:{
+                    ...state.loadingState,
+                    [action.type]: LOADING_STATES.LOADING
+                }
+            }
+
+        case BUDGET_TRANSACTION_ADD_SUCCESS:
+            delete newLoadingState.BUDGET_TRANSACTION_ADD_REQUEST
+            return{
+                ...state,
+                budget:{
+                    ...state.budget,
+                    transactions:[
+                        action.payload,
+                        ...state.budget.transactions
+                    ]
+                },
+                loadingState: newLoadingState
+            }
+
         default:
             return state
     }
