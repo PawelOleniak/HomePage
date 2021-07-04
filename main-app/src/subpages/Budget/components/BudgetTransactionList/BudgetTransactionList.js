@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
-import { List, ListItem } from './BudgetTransactionListCss'
+import { List } from './BudgetTransactionListCss'
 import { connect } from 'react-redux';
 import { groupBy } from 'lodash';
-import { formatCurrency, formatDate } from "utils";
+import { TransactionItem } from "./TransactionItem";
 
-function BudgetTransactionList({ transactions, allCategories, budgetedCategories, selectedCategory }) {
+function BudgetTransactionList({ transactions, allCategories, budgetedCategories,
+selectedCategory, selectTransaction }) {
 
     const filteredBySelectedCategory = useMemo(
         () => {
@@ -48,19 +49,7 @@ function BudgetTransactionList({ transactions, allCategories, budgetedCategories
         <List >
           {Object.entries(groupedTransactions).map(([key,transactions]) => (
               <li key={key}>
-                <ul >
-                    { transactions.map(transaction =>(
-                        <ListItem key={transaction.description}>
-                            <div>{transaction.description}</div>
-                            <div>{formatCurrency(transaction.amount)}</div>
-                            <div>{formatDate(transaction.date)}</div>
-                            <div>
-                                {(allCategories.find(category=> transaction.categoryId === category.id) || {}).name}
-                            </div>
-
-                        </ListItem>
-                    ))}
-                </ul>
+                <TransactionItem transactions={transactions} allCategories={allCategories} />
               </li>
           ))}
         </List>
@@ -68,8 +57,8 @@ function BudgetTransactionList({ transactions, allCategories, budgetedCategories
 }
 
 export default connect(state => ({
-    transactions: state.budget.budget.transactions,
+    transactions: state.budgets.budget.transactions,
     allCategories: state.common.allCategories,
-    selectedCategory: state.budget.SelectedCategoryId,
-    budgetedCategories: state.budget.budgetedCategories
+    selectedCategory: state.budgets.SelectedCategoryId,
+    budgetedCategories: state.budgets.budgetedCategories,
 }))(BudgetTransactionList)

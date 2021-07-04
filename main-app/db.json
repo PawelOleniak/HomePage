@@ -62,7 +62,7 @@
   "budgetCategories": [
     {
       "id": "1",
-      "budget": 120.47,
+      "budget": 120.5,
       "categoryId": "1",
       "budgetId": "1"
     },
@@ -160,22 +160,6 @@
       "date": "2020-02-13",
       "budgetId": "1",
       "id": "p1tYW2Q"
-    },
-    {
-      "description": "My new transaction",
-      "amount": 12,
-      "categoryId": "1",
-      "date": "2021-07-02",
-      "budgetId": "1",
-      "id": "x9kLxF9"
-    },
-    {
-      "description": "My new transaction2",
-      "amount": 67,
-      "categoryId": "3",
-      "date": "2021-07-02",
-      "budgetId": "1",
-      "id": "2lU1YuS"
     }
   ]
 }

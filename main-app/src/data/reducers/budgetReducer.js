@@ -10,96 +10,143 @@ import {
     BUDGET_TRANSACTION_ADD_REQUEST,
     BUDGET_TRANSACTION_ADD_SUCCESS,
 
+    BUDGETED_CATEGORY_ADD_REQUEST,
+    BUDGETED_CATEGORY_ADD_SUCCESS,
+
+
+    BUDGET_ADD_REQUEST,
+    BUDGET_ADD_SUCCESS,
+
     LOADING_STATES,
-    SET_SELECTED_CATEGORY_ID
+    SET_SELECTED_CATEGORY_ID,
 } from "data/constants";
 
 
 
 const initialState = {
     loadingState: null,
-    budget:{},
-    budgetCategories:[],
-    SelectedCategoryId: undefined
+    budget: {},
+    budgetedCategories: [],
+    SelectedCategoryId: undefined,
 }
 
-function budget(state=initialState,action) {
-    const newLoadingState= { ...state.loadingState };
-    switch(action.type){
+function budget(state = initialState, action) {
+    const newLoadingState = { ...state.loadingState };
+    switch (action.type) {
         case BUDGET_GET_SUCCESS:
             delete newLoadingState.BUDGET_GET_REQUEST
-            return{
+            return {
                 ...state,
-                budget:action.payload,
+                budget: action.payload,
                 loadingState: newLoadingState
             }
         case BUDGET_GET_REQUEST:
-            return{
+            return {
                 ...state,
-                loadingState:{
+                loadingState: {
                     ...state.loadingState,
                     [action.type]: LOADING_STATES.LOADING
                 }
             }
         case BUDGET_GET_FALIURE:
             delete newLoadingState.BUDGET_GET_REQUEST;
-            return{
+            return {
                 ...state,
-                budget:{},
+                budget: {},
                 loadingState: newLoadingState
             }
 
 
 
-            case BUDGETED_CATEGORIES_GET_SUCCESS:
+        case BUDGETED_CATEGORIES_GET_SUCCESS:
             delete newLoadingState.BUDGETED_CATEGORIES_GET_REQUEST
-            return{
+            return {
                 ...state,
-                budgetedCategories:action.payload,
+                budgetedCategories: action.payload,
                 loadingState: newLoadingState
             }
         case BUDGETED_CATEGORIES_GET_REQUEST:
-            return{
+            return {
                 ...state,
-                loadingState:{
+                loadingState: {
                     ...state.loadingState,
                     [action.type]: LOADING_STATES.LOADING
                 }
             }
         case BUDGETED_CATEGORIES_GET_FALIURE:
             delete newLoadingState.BUDGETED_CATEGORIES_GET_REQUEST;
-            return{
+            return {
                 ...state,
-                budgetedCategories:{},
+                budgetedCategories: {},
                 loadingState: newLoadingState
             }
 
         case SET_SELECTED_CATEGORY_ID:
-            return{
+            return {
                 ...state,
                 SelectedCategoryId: action.payload
             }
 
+
         case BUDGET_TRANSACTION_ADD_REQUEST:
-            return{
+            return {
                 ...state,
-                loadingState:{
+                loadingState: {
                     ...state.loadingState,
                     [action.type]: LOADING_STATES.LOADING
                 }
             }
 
+
         case BUDGET_TRANSACTION_ADD_SUCCESS:
             delete newLoadingState.BUDGET_TRANSACTION_ADD_REQUEST
-            return{
+            return {
                 ...state,
-                budget:{
+                budget: {
                     ...state.budget,
-                    transactions:[
+                    transactions: [
                         action.payload,
                         ...state.budget.transactions
                     ]
                 },
+                loadingState: newLoadingState
+            }
+        case BUDGETED_CATEGORY_ADD_REQUEST:
+            return {
+                ...state,
+                loadingState: {
+                    ...state.loadingState,
+                    [action.type]: LOADING_STATES.LOADING
+                }
+            }
+
+        case BUDGETED_CATEGORY_ADD_SUCCESS:
+            delete newLoadingState.BUDGETED_CATEGORY_ADD_REQUEST
+            return {
+                ...state,
+                budgetedCategories: [
+                        action.payload,
+                        ...state.budgetedCategories
+                    ]
+                ,
+                loadingState: newLoadingState
+            }
+        case BUDGET_ADD_REQUEST:
+            return {
+                ...state,
+                loadingState: {
+                    ...state.loadingState,
+                    [action.type]: LOADING_STATES.LOADING
+                }
+            }
+        case BUDGET_ADD_SUCCESS:
+            delete newLoadingState.BUDGET_ADD_REQUEST
+            return {
+                ...state,
+                budget: [
+                    ...state.budget,
+                    action.payload,
+            ],
                 loadingState: newLoadingState
             }
 

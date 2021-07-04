@@ -148,9 +148,9 @@ function BudgetCategoryList  ({
 }
 
 export default connect(state =>({
-    budgetedCategories: state.budget.budgetedCategories,
+    budgetedCategories: state.budgets.budgetedCategories,
     allCategories: state.common.allCategories,
-    budget: state.budget.budget
+    budget: state.budgets.budget
 }),{
     selectCategory
 })(BudgetCategoryList)

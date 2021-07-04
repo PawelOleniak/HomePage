@@ -24,3 +24,38 @@ export const addTransaction = ({ budgetId, data }) => {
     });
     return promise;
 }
+
+export const addBudgetedCategory = ({ data }) => {
+    const promise= fetch(`${process.env.REACT_APP_API_URL}/budgetCategories`,
+    {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+    return promise;
+}
+export const addParentCategory = ({ data }) => {
+    const promise= fetch(`${process.env.REACT_APP_API_URL}/parentCategories`,
+    {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+    return promise;
+}
+
+export const addBudget = ({ data }) => {
+    const promise= fetch(`${process.env.REACT_APP_API_URL}/budgets`,
+    {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+    return promise;
+}

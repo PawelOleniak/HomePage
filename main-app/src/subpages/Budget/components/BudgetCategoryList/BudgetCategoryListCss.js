@@ -6,6 +6,7 @@ export const Category= styled.div`
     display: flex;
     justify-content:space-between;
     border-radius: 3px;
+    cursor: pointer;
 `
 
 export const ParentCategory=styled(Category)`

@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
-import  budget  from "./budgetReducer";
+import  budgets  from "./budgetReducer";
 import  common  from "./commonReducer";
 const rootReducer = combineReducers({
-    budget,
+    budgets,
     common
 });
 export default rootReducer;
