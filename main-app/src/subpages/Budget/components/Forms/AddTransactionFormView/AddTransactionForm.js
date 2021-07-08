@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Form, Field } from 'react-final-form'
 import { groupBy, noop } from "lodash";
-import { Input, Select } from "./InputTemplates";
+import { Input, Select } from "../Templates/InputTemplates";
 
 const required = value => (value ? undefined : 'Required')
 

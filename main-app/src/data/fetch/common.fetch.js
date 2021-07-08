@@ -1,12 +1,12 @@
 
-export const fetchAllCategories = ()=>{
-    const promise= fetch(`${process.env.REACT_APP_API_URL}/categories/?_expand=parentCategory`);
+export const  fetchAllCategories = async ()=>{
+    const response=await  fetch(`${process.env.REACT_APP_API_URL}/categories/?_expand=parentCategory`);
 
-    return promise;
+    return await response.json();
 };
 
-export const addCategory = ({ data }) => {
-    const promise= fetch(`${process.env.REACT_APP_API_URL}/categories/?_expand=parentCategory`,
+export const addCategory =async ({ data }) => {
+    const response=await fetch(`${process.env.REACT_APP_API_URL}/categories/?_expand=parentCategory`,
     {
         method: "POST",
         body: JSON.stringify(data),
@@ -14,6 +14,6 @@ export const addCategory = ({ data }) => {
             'Content-type': 'application/json'
         }
     });
-    console.log(promise)
-    return promise;
+
+    return await response.json();
 }

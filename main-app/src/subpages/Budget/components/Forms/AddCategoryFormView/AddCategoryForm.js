@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Form, Field } from 'react-final-form'
 import { noop } from "lodash";
-import { Input, Select } from "./InputTemplates";
+import { Input, Select } from "../Templates/InputTemplates";
 
 const required = value => (value ? undefined : 'Required')
 
@@ -18,7 +18,7 @@ export default function AddCategoryForm({ onSubmit = noop, categories, budgets }
     const parentCategoryOprions = parentCategories
         .filter((value, index, array) => array.findIndex(t => (t.id === value.id)) === index)
         .map(parentCategory => (
-            <option value={parentCategory.id} >{parentCategory.name}</option>
+            <option key={parentCategory.id} value={parentCategory.id} >{parentCategory.name}</option>
         ))
 
 
@@ -26,11 +26,11 @@ export default function AddCategoryForm({ onSubmit = noop, categories, budgets }
         () => typeof budgets.length !== 'undefined' ?
 
             budgets.map(budget => (
-                <option key={budgets.budget.id} value={budget.budget.id} >{budget.budget.name}</option>
+                <option key={budget.id} value={budget.id} >{budget.budget.name}</option>
             ))
             :
             [<option value={0} >test</option>,
-            <option key={budgets.budget.id} value={budgets.budget.id} >{budgets.budget.name}</option>]
+            <option key={budgets.id} value={budgets.id} >{budgets.name}</option>]
 
         , [budgets])
 
@@ -41,13 +41,13 @@ export default function AddCategoryForm({ onSubmit = noop, categories, budgets }
 
                 <form onSubmit={handleSubmit}>
                     <label>Budget</label>
-                    <Field name="budgetId" fieldType="Budget "  options={budgetsOptions}
+                    <Field name="budgetId" fieldType="Budget " initialValue={1} options={budgetsOptions}
                         component={Select} />
                     <Field name="name" fieldType="Category name " validate={required} component={Input} />
                     <div>
                         {!values.newParentCategory && [
                             <Field name="parentCategoryId" description="Parent category"
-                                options={parentCategoryOprions} component={Select} />]}
+                                options={parentCategoryOprions} initialValue={"1"} component={Select}  />]}
                         {values.newParentCategory && [
                             <Field name="newParentCategoryName" description="New parent category Name"
                                 placeholder="Name" component={Input} />]}

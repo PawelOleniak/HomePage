@@ -1,21 +1,4 @@
 import {
-    BUDGET_GET_REQUEST,
-    BUDGET_GET_SUCCESS,
-    BUDGET_GET_FALIURE,
-
-    BUDGETED_CATEGORIES_GET_REQUEST,
-    BUDGETED_CATEGORIES_GET_SUCCESS,
-    BUDGETED_CATEGORIES_GET_FALIURE,
-
-    BUDGET_TRANSACTION_ADD_REQUEST,
-    BUDGET_TRANSACTION_ADD_SUCCESS,
-
-    BUDGETED_CATEGORY_ADD_REQUEST,
-    BUDGETED_CATEGORY_ADD_SUCCESS,
-
-
-    BUDGET_ADD_REQUEST,
-    BUDGET_ADD_SUCCESS,
 
     LOADING_STATES,
     SET_SELECTED_CATEGORY_ID,
@@ -24,130 +7,17 @@ import {
 
 
 const initialState = {
-    loadingState: null,
-    budget: {},
-    budgetedCategories: [],
     SelectedCategoryId: undefined,
 }
 
 function budget(state = initialState, action) {
     const newLoadingState = { ...state.loadingState };
+
     switch (action.type) {
-        case BUDGET_GET_SUCCESS:
-            delete newLoadingState.BUDGET_GET_REQUEST
-            return {
-                ...state,
-                budget: action.payload,
-                loadingState: newLoadingState
-            }
-        case BUDGET_GET_REQUEST:
-            return {
-                ...state,
-                loadingState: {
-                    ...state.loadingState,
-                    [action.type]: LOADING_STATES.LOADING
-                }
-            }
-        case BUDGET_GET_FALIURE:
-            delete newLoadingState.BUDGET_GET_REQUEST;
-            return {
-                ...state,
-                budget: {},
-                loadingState: newLoadingState
-            }
-
-
-
-        case BUDGETED_CATEGORIES_GET_SUCCESS:
-            delete newLoadingState.BUDGETED_CATEGORIES_GET_REQUEST
-            return {
-                ...state,
-                budgetedCategories: action.payload,
-                loadingState: newLoadingState
-            }
-        case BUDGETED_CATEGORIES_GET_REQUEST:
-            return {
-                ...state,
-                loadingState: {
-                    ...state.loadingState,
-                    [action.type]: LOADING_STATES.LOADING
-                }
-            }
-        case BUDGETED_CATEGORIES_GET_FALIURE:
-            delete newLoadingState.BUDGETED_CATEGORIES_GET_REQUEST;
-            return {
-                ...state,
-                budgetedCategories: {},
-                loadingState: newLoadingState
-            }
-
         case SET_SELECTED_CATEGORY_ID:
             return {
                 ...state,
                 SelectedCategoryId: action.payload
-            }
-
-
-        case BUDGET_TRANSACTION_ADD_REQUEST:
-            return {
-                ...state,
-                loadingState: {
-                    ...state.loadingState,
-                    [action.type]: LOADING_STATES.LOADING
-                }
-            }
-
-
-        case BUDGET_TRANSACTION_ADD_SUCCESS:
-            delete newLoadingState.BUDGET_TRANSACTION_ADD_REQUEST
-            return {
-                ...state,
-                budget: {
-                    ...state.budget,
-                    transactions: [
-                        action.payload,
-                        ...state.budget.transactions
-                    ]
-                },
-                loadingState: newLoadingState
-            }
-        case BUDGETED_CATEGORY_ADD_REQUEST:
-            return {
-                ...state,
-                loadingState: {
-                    ...state.loadingState,
-                    [action.type]: LOADING_STATES.LOADING
-                }
-            }
-
-        case BUDGETED_CATEGORY_ADD_SUCCESS:
-            delete newLoadingState.BUDGETED_CATEGORY_ADD_REQUEST
-            return {
-                ...state,
-                budgetedCategories: [
-                        action.payload,
-                        ...state.budgetedCategories
-                    ]
-                ,
-                loadingState: newLoadingState
-            }
-        case BUDGET_ADD_REQUEST:
-            return {
-                ...state,
-                loadingState: {
-                    ...state.loadingState,
-                    [action.type]: LOADING_STATES.LOADING
-                }
-            }
-        case BUDGET_ADD_SUCCESS:
-            delete newLoadingState.BUDGET_ADD_REQUEST
-            return {
-                ...state,
-                budget: [
-                    ...state.budget,
-                    action.payload,
-            ],
-                loadingState: newLoadingState
             }
 
         default:

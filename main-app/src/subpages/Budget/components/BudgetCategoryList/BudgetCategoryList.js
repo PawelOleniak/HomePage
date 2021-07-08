@@ -1,81 +1,89 @@
-import React, { useRef, useMemo, useCallback } from 'react';
+import React, { useRef, useMemo, useCallback, useContext } from 'react';
 import { connect } from "react-redux";
-import { groupBy } from 'lodash';
+import { groupBy, noop } from 'lodash';
 import { ToggleableList } from 'components/ToggleableList';
 import ParentCategory from './ParentCategory';
 import CategoryItem from './CategoryItem';
 import { useTranslation } from 'react-i18next';
 import { selectCategory } from "data/actions/budgetActions"
 import 'styled-components/macro';
+import { useQuery } from 'react-query'
+import API from 'data/fetch';
+import { SuspenseErrorBoundary } from 'components';
+import { BudgetContext } from 'subpages/Budget/BudgetContext';
 
-function BudgetCategoryList  ({
-    budgetedCategories, allCategories, budget,
-    selectCategory }) {
+function BudgetCategoryList({ selectCategory }) {
     const handleClickParentCategoryRef = useRef(null)
     const { t } = useTranslation();
+    const { selectedBudget } = useContext(BudgetContext.Context)
+    const id = selectedBudget.value;
+
+    const { isFetching: budgetisFetching, data: budget } = useQuery(['budget', id], () => API.budget.fetchBudget(id))
+    const { isFetching: budgetedCategoriesisFetching, data: budgetedCategories } = useQuery('budgetedCategories', API.budget.fetchBudgetedCategories)
+    const { isFetching: allCategoriesisFetching, data: allCategories } = useQuery('allCategories', API.common.fetchAllCategories)
+    const isFetching = budgetisFetching || budgetedCategoriesisFetching || allCategoriesisFetching
 
 
-
-    const handleClearCategorySelect= useCallback(
+    const handleClearCategorySelect = useCallback(
         () => {
             selectCategory();
             handleClickParentCategoryRef.current();
-    },
-    [ selectCategory, handleClickParentCategoryRef ]
+        },
+        [selectCategory, handleClickParentCategoryRef]
     );
 
-    const handleSelectOtherCategory= useCallback(() => {
+    const handleSelectOtherCategory = useCallback(() => {
         selectCategory(null);
         handleClickParentCategoryRef.current();
-    },[ selectCategory, handleClickParentCategoryRef ]
+    }, [selectCategory, handleClickParentCategoryRef]
     );
 
-
-
-
-    const BudgetedCategoriesByParent = useMemo(
+    const BudgetedCategoriesByParent = useMemo(!isFetching ?
         () => groupBy(
             budgetedCategories,
-            item => allCategories.find(category => category.id === item.categoryId).parentCategory.name
-        ),
-        [budgetedCategories,allCategories]
+            item => allCategories
+                .find(category => category.id === item.categoryId).parentCategory.name
+        ) : noop,
+        [budgetedCategories, allCategories, isFetching]
     );
 
-    const listItems = useMemo(
-        () =>Object.entries(BudgetedCategoriesByParent).map(([ parentName, categories ]) =>({
+    const listItems = useMemo(!isFetching ?
+        () => Object.entries(BudgetedCategoriesByParent).map(([parentName, categories]) => ({
             id: parentName,
-        Trigger: ({ onClick }) => (
-            <ParentCategory
-                name={parentName}
-                onClick={() =>
-                    {onClick(parentName);
-                    selectCategory(parentName)}}
-                categories= {categories}
-                transactions={budget.transactions}
-            />
+            Trigger: ({ onClick }) => (
+                <ParentCategory
+                    name={parentName}
+                    onClick={() => {
+                        onClick(parentName);
+                        selectCategory(parentName)
+                    }}
+                    categories={categories}
+                    transactions={budget.transactions}
+                />
 
 
-        ),
-        children: categories.map((budgetedCategory)=>{
-            const {name} = allCategories.find(category => category.id === budgetedCategory.categoryId)
+            ),
+            children: categories.map((budgetedCategory) => {
+                const { name } = allCategories.find(category => category.id === budgetedCategory.categoryId)
 
-           return( <CategoryItem
-                key={budgetedCategory.id}
-                name={name}
-                item={budgetedCategory}
-                transactions={budget.transactions}
-            />
-        )})
+                return (<CategoryItem
+                    key={budgetedCategory.id}
+                    name={name}
+                    item={budgetedCategory}
+                    transactions={budget.transactions}
+                />
+                )
+            })
 
-    }))
-        ,[allCategories, BudgetedCategoriesByParent, budget.transactions, selectCategory]
+        })) : noop
+        , [allCategories, BudgetedCategoriesByParent, budget.transactions, selectCategory, isFetching]
     )
 
 
 
     const totalSpent = useMemo(
         () => budget.transactions
-            .reduce((acc, transaction) => acc+ transaction.amount,0),
+            .reduce((acc, transaction) => acc + transaction.amount, 0),
         [budget.transactions]
     );
 
@@ -83,41 +91,40 @@ function BudgetCategoryList  ({
         () => budget.totalAmount - totalSpent,
         [totalSpent, budget.totalAmount]
     );
+    const amountTaken = useMemo(
+        () => budgetedCategories.reduce((acc, budgetedCategory) => {
+            const categoryTransactions = budget.transactions
+                .filter(transaction => transaction.CategoryId === budgetedCategory.id)
+            const categoryExpenses = categoryTransactions
+                .reduce((acc, transaction) => acc + transaction.amount, 0);
 
-        const amountTaken = useMemo(
-            () => budgetedCategories.reduce((acc,budgetedCategory) => {
-                const categoryTransactions = budget.transactions
-                    .filter(transaction=>transaction.CategoryId ===budgetedCategory.id )
-                const categoryExpenses=categoryTransactions
-                    .reduce((acc,transaction) => acc+transaction.amount,0);
-
-                    return acc + Math.max(categoryExpenses, budgetedCategory.budget);
-                },0),
-            [budget.transactions, budgetedCategories]
-        );
-
-
-            const notBudgetedTransactions = useMemo(
-                () => budget.transactions
-                .filter(transaction =>{
-                    return !budgetedCategories
-                        .find(budgetedCategory => budgetedCategory.id === transaction.categoryId)
-                }),
-                [ budget.transactions, budgetedCategories]
-            );
-            const notBudgetedExpenses = useMemo(
-                () => notBudgetedTransactions
-                .reduce((acc,transaction) => acc+ transaction.amount,0),
-                [ notBudgetedTransactions ]
-            );
-            const availableForRestCategories = useMemo(
-                () =>budget.totalAmount - amountTaken - notBudgetedExpenses,
-                [ amountTaken, notBudgetedExpenses, budget.totalAmount ]
-            );
+            return acc + Math.max(categoryExpenses, budgetedCategory.amount);
+        }, 0),
+        [budget.transactions, budgetedCategories]
+    );
 
 
-    return (
-        <div>
+    const notBudgetedTransactions = useMemo(
+        () => budget.transactions
+            .filter(transaction => {
+                return !budgetedCategories
+                    .find(budgetedCategory => budgetedCategory.id === transaction.categoryId)
+            }),
+        [budget.transactions, budgetedCategories]
+    );
+    const notBudgetedExpenses = useMemo(
+        () => notBudgetedTransactions
+            .reduce((acc, transaction) => acc + transaction.amount, 0),
+        [notBudgetedTransactions]
+    );
+    const availableForRestCategories = useMemo(
+        () => budget.totalAmount - amountTaken - notBudgetedExpenses,
+        [amountTaken, notBudgetedExpenses, budget.totalAmount]
+    );
+
+
+    return (listItems && !isFetching ?
+        <SuspenseErrorBoundary>
             <div css={`
                 border-bottom: 5px solid ${({ theme }) => theme.colors.gray.normal};
             `}>
@@ -142,15 +149,11 @@ function BudgetCategoryList  ({
                 />
             </div>
 
-        </div>
-
+        </SuspenseErrorBoundary>
+        : <div></div>
     )
 }
 
-export default connect(state =>({
-    budgetedCategories: state.budgets.budgetedCategories,
-    allCategories: state.common.allCategories,
-    budget: state.budgets.budget
-}),{
+export default connect(null, {
     selectCategory
 })(BudgetCategoryList)

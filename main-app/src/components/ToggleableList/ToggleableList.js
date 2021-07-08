@@ -1,4 +1,4 @@
-import React,{ useState, Fragment, useEffect } from 'react'
+import React,{ useState, useEffect } from 'react'
 
 
 
@@ -19,7 +19,7 @@ export default function ToggleableList({ items, clickRef }) {
         clickRef.current = setSelectedItem;
     }, [clickRef, selectedItem]);
     return (
-        <Fragment>
+        <>
             {items.map(item => (
             <Item
                 key={item.id}
@@ -27,6 +27,6 @@ export default function ToggleableList({ items, clickRef }) {
                 onClickHandler={setSelectedItem}
                 isActive= {selectedItem === item.id}/>
             ))}
-        </Fragment>
+        </>
     )
 }

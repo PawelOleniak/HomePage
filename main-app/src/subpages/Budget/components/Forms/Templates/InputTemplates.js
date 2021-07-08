@@ -8,12 +8,12 @@ export function Input({ input, meta, fieldType="text", step, placeholder, descri
             </div>
     )
 }
-export function Select({ input, meta, options, description}){
+export function Select({ input, meta, options, description, initialValue}){
 
     return(
              <div>
                 <label>{description}</label>
-                <select {...input}>
+                <select {...input} initialvalue={initialValue}>
                     {options}
                 </select>
                 {meta.error && meta.touched && <span>{meta.error}</span>}

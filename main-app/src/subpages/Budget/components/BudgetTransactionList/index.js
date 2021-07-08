@@ -1,1 +1,1 @@
-export { default } from "./BudgetTransactionList"
+export { default as BudgetTransactionList } from "./BudgetTransactionList"

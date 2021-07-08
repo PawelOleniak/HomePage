@@ -9,7 +9,7 @@ export default function ParentCategory({ name, onClick, categories, transactions
 
         const budgeted= (() => {
             try{
-                return categories.reduce((acc, category) => acc+ category.budget, 0);
+                return categories.reduce((acc, category) => acc+ category.amount, 0);
             } catch(error){
                 return null;
             }

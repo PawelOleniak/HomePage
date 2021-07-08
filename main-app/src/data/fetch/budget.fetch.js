@@ -1,61 +1,75 @@
 
+const apiURL = process.env.REACT_APP_API_URL;
 
-export const fetchBudget = (id) => {
-    const promise= fetch(`${process.env.REACT_APP_API_URL}/budgets/${id}/?_embed=transactions`);
+export const fetchBudget = async (id) => {
+    const baseURL = `${apiURL}/budgets/${id}/?_embed=transactions`
+    const response = await fetch(baseURL);
 
-    return promise;
+    return await response.json();
 };
-export const fetchBudgetedCategories = () => {
-    const promise= fetch(`${process.env.REACT_APP_API_URL}/budgetCategories`);
+export const fetchAllBudgets = async () => {
+    const baseURL = `${apiURL}/budgets`
+    const response = await fetch(baseURL);
 
 
-    return promise;
+    return await response.json();
+};
+export const fetchBudgetedCategories = async () => {
+    const baseURL = `${apiURL}/budgetCategories`
+
+    const response = await fetch(baseURL);
+
+    return await response.json();
 };
 
 
-export const addTransaction = ({ budgetId, data }) => {
-    const promise= fetch(`${process.env.REACT_APP_API_URL}/budgets/${budgetId}/transactions`,
-    {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-type': 'application/json'
-        }
-    });
-    return promise;
+export const addTransaction = async ({ budgetId, data }) => {
+    const baseURL = `${apiURL}/budgets/${budgetId}/transactions`
+    const response = await fetch(baseURL,
+        {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+    return await response.json();
 }
 
-export const addBudgetedCategory = ({ data }) => {
-    const promise= fetch(`${process.env.REACT_APP_API_URL}/budgetCategories`,
-    {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-type': 'application/json'
-        }
-    });
-    return promise;
+export const addBudgetedCategory = async ({ data }) => {
+    const baseURL = `${apiURL}/budgetCategories`
+    const response = await fetch(baseURL,
+        {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+    return await response.json();
 }
-export const addParentCategory = ({ data }) => {
-    const promise= fetch(`${process.env.REACT_APP_API_URL}/parentCategories`,
-    {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-type': 'application/json'
-        }
-    });
-    return promise;
+export const addParentCategory = async ({ data }) => {
+    const baseURL = `${apiURL}/parentCategories`
+    const response = await fetch(baseURL,
+        {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+    return await response.json();
 }
 
 export const addBudget = ({ data }) => {
-    const promise= fetch(`${process.env.REACT_APP_API_URL}/budgets`,
-    {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-type': 'application/json'
-        }
-    });
+    const baseURL = `${apiURL}/budgets`
+    const promise = fetch(baseURL,
+        {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
     return promise;
 }

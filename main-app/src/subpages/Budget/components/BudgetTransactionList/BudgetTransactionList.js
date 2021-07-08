@@ -1,19 +1,29 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useContext } from 'react'
 import { List } from './BudgetTransactionListCss'
 import { connect } from 'react-redux';
 import { groupBy } from 'lodash';
-import { TransactionItem } from "./TransactionItem";
+import { TransactionItem } from "../TransactionItem";
+import { useQuery, } from 'react-query'
+import API from 'data/fetch';
+import { BudgetContext } from 'subpages/Budget/BudgetContext';
 
-function BudgetTransactionList({ transactions, allCategories, budgetedCategories,
-selectedCategory, selectTransaction }) {
+
+function BudgetTransactionList({ selectedCategory }) {
+
+
+    const { selectedBudget } = useContext(BudgetContext.Context)
+    const id = selectedBudget.value;
+    const { data: budget } = useQuery(['budget',id], () => API.budget.fetchBudget(id))
+    const { data: budgetedCategories } = useQuery('budgetedCategories', API.budget.fetchBudgetedCategories)
+    const { data: allCategories } = useQuery('allCategories', API.common.fetchAllCategories)
 
     const filteredBySelectedCategory = useMemo(
         () => {
-            if(typeof selectedCategory === 'undefined'){
-                return transactions
+            if (typeof selectedCategory === 'undefined') {
+                return budget.transactions
             }
-            if(selectedCategory === null){
-                return transactions
+            if (selectedCategory === null) {
+                return budget.transactions
                     .filter(transaction => {
                         const hasBudgetedCategory = budgetedCategories
                             .some(budgetedCategory => budgetedCategory.categoryId === transaction.categoryId)
@@ -21,44 +31,42 @@ selectedCategory, selectTransaction }) {
                     })
             }
 
-            return transactions
-            .filter(transaction => {
-                try{const Category = allCategories
-                        .find(category=> transaction.categoryId === category.id);
+            return budget.transactions
+                .filter(transaction => {
+                    try {
+                        const Category = allCategories
+                            .find(category => transaction.categoryId === category.id);
 
-                    const parentCategoryName=Category.parentCategory.name
+                        const parentCategoryName = Category.parentCategory.name
 
-                    return parentCategoryName === selectedCategory
-                }catch(error){
-                    return false
-                }
-            })
-    },
-    [ selectedCategory, budgetedCategories, allCategories, transactions ]
+                        return parentCategoryName === selectedCategory
+                    } catch (error) {
+                        return false
+                    }
+                })
+        },
+        [selectedCategory, budgetedCategories, allCategories, budget.transactions]
     );
 
     const groupedTransactions = useMemo(
-        () =>groupBy(
+        () => groupBy(
             filteredBySelectedCategory,
             transaction => new Date(transaction.date).getUTCDate()
-    ),
-    [ filteredBySelectedCategory ]
+        ),
+        [filteredBySelectedCategory]
     )
 
     return (
         <List >
-          {Object.entries(groupedTransactions).map(([key,transactions]) => (
-              <li key={key}>
-                <TransactionItem transactions={transactions} allCategories={allCategories} />
-              </li>
-          ))}
+            {Object.entries(groupedTransactions).map(([key, transactions]) => (
+                <li key={key}>
+                    <TransactionItem transactions={transactions} allCategories={allCategories} />
+                </li>
+            ))}
         </List>
     )
 }
 
 export default connect(state => ({
-    transactions: state.budgets.budget.transactions,
-    allCategories: state.common.allCategories,
     selectedCategory: state.budgets.SelectedCategoryId,
-    budgetedCategories: state.budgets.budgetedCategories,
 }))(BudgetTransactionList)
