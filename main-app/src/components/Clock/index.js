@@ -1,1 +1,1 @@
-export {default as Clockbox} from "./ClockBox"
+export { default as Clockbox } from './ClockBox';

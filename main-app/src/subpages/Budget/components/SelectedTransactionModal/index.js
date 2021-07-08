@@ -1,1 +1,1 @@
-export { default as SelectedTransactionModal } from "./SelectedTransactionModal"
+export { default as SelectedTransactionModal } from './SelectedTransactionModal';

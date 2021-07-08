@@ -1,1 +1,1 @@
-export {default as BudgetSelector} from "./BudgetSelector"
+export { default as BudgetSelector } from './BudgetSelector';

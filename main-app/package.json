@@ -34,7 +34,9 @@
     "build": " react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:db": "json-server --watch db.json --port 3001"
+    "start:db": "json-server --watch db.json --port 3001",
+    "format:prettier": "prettier --write \"{,!(node_modules)/**/}*.{js,jsx}\"",
+    "format:eslint": "eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\""
   },
   "browserslist": {
     "production": [

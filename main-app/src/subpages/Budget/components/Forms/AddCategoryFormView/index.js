@@ -1,1 +1,1 @@
-export { default as AddCategoryFormView } from "./AddCategoryFormView"
+export { default as AddCategoryFormView } from './AddCategoryFormView';

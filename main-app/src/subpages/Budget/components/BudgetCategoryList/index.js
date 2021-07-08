@@ -1,1 +1,1 @@
-export { default as BudgetCategoryList } from "./BudgetCategoryList"
+export { default as BudgetCategoryList } from './BudgetCategoryList';

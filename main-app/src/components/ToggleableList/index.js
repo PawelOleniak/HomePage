@@ -1,1 +1,1 @@
-export {default as ToggleableList} from "./ToggleableList"
+export { default as ToggleableList } from './ToggleableList';

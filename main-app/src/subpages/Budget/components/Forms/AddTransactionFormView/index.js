@@ -1,1 +1,1 @@
-export { default as AddTransactionFormView } from "./AddTransactionFormView"
+export { default as AddTransactionFormView } from './AddTransactionFormView';

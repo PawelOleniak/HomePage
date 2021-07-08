@@ -1,27 +1,21 @@
-import {
-
-    LOADING_STATES,
-    SET_SELECTED_CATEGORY_ID,
-} from "data/constants";
-
-
+import { LOADING_STATES, SET_SELECTED_CATEGORY_ID } from 'data/constants';
 
 const initialState = {
-    SelectedCategoryId: undefined,
-}
+  SelectedCategoryId: undefined,
+};
 
 function budget(state = initialState, action) {
-    const newLoadingState = { ...state.loadingState };
+  const newLoadingState = { ...state.loadingState };
 
-    switch (action.type) {
-        case SET_SELECTED_CATEGORY_ID:
-            return {
-                ...state,
-                SelectedCategoryId: action.payload
-            }
+  switch (action.type) {
+    case SET_SELECTED_CATEGORY_ID:
+      return {
+        ...state,
+        SelectedCategoryId: action.payload,
+      };
 
-        default:
-            return state
-    }
+    default:
+      return state;
+  }
 }
 export default budget;

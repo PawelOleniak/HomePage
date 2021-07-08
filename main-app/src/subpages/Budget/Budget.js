@@ -1,11 +1,15 @@
-import React from 'react'
-import { Switch, Route } from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import { Grid } from './BudgetCss';
 import { BudgetSelector } from './components/BudgetSelector';
 import { Button, SuspenseErrorBoundary } from 'components';
 import {
-  BudgetTransactionList, BudgetCategoryList, SelectedTransactionModal,
-  AddTransactionFormView, AddBudgetFormView, AddCategoryFormView
+  BudgetTransactionList,
+  BudgetCategoryList,
+  SelectedTransactionModal,
+  AddTransactionFormView,
+  AddBudgetFormView,
+  AddCategoryFormView,
 } from 'subpages/Budget/components';
 import { BudgetContext } from './BudgetContext';
 
@@ -14,7 +18,7 @@ export default function Budget() {
     <BudgetContext.ContextProvider>
       <Grid>
         <section>
-          <BudgetSelector/>
+          <BudgetSelector />
           <Button to="/budget/new">Add new Budget</Button>
           <SuspenseErrorBoundary>
             <BudgetCategoryList />
@@ -24,7 +28,7 @@ export default function Budget() {
         <section></section>
         <section>
           <SuspenseErrorBoundary>
-            <Button to="/budget/transactions/new" >Add new Transaction</Button>
+            <Button to="/budget/transactions/new">Add new Transaction</Button>
             <BudgetTransactionList />
           </SuspenseErrorBoundary>
         </section>
@@ -44,5 +48,5 @@ export default function Budget() {
         </Route>
       </Switch>
     </BudgetContext.ContextProvider>
-  )
+  );
 }
