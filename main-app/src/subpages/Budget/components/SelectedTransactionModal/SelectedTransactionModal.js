@@ -9,18 +9,11 @@ import API from 'data/fetch';
 export default function SelectedTransactionModal() {
   const { selectedBudget } = useContext(BudgetContext.Context);
   const id = selectedBudget.value;
-  const { data: budget } = useQuery(['budget', id], () =>
-    API.budget.fetchBudget(id)
-  );
-  const { data: allCategories } = useQuery(
-    'allCategories',
-    API.common.fetchAllCategories
-  );
+  const { data: budget } = useQuery(['budget', id], () => API.budget.fetchBudget(id));
+  const { data: allCategories } = useQuery('allCategories', API.common.fetchAllCategories);
 
   let location = useLocation();
-  const selectedTransactionId = location.pathname.substring(
-    location.pathname.lastIndexOf('/') + 1
-  );
+  const selectedTransactionId = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
 
   const selectedTransaction = useMemo(() => {
     if (typeof selectedTransactionId === 'undefined') {
@@ -29,18 +22,12 @@ export default function SelectedTransactionModal() {
     if (typeof budget.transactions === 'undefined') {
       return budget.transactions;
     }
-    return budget.transactions.find(
-      (transaction) => transaction.id === selectedTransactionId
-    );
+    return budget.transactions.find((transaction) => transaction.id === selectedTransactionId);
   }, [selectedTransactionId, budget.transactions]);
 
   return (
     <Modal>
-      <TransactionItem
-        transactions={selectedTransaction}
-        allCategories={allCategories}
-        selected={true}
-      />
+      <TransactionItem transactions={selectedTransaction} allCategories={allCategories} selected={true} />
     </Modal>
   );
 }

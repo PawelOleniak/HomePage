@@ -10,17 +10,9 @@ import { BudgetContext } from 'subpages/Budget/BudgetContext';
 function BudgetTransactionList({ selectedCategory }) {
   const { selectedBudget } = useContext(BudgetContext.Context);
   const id = selectedBudget.value;
-  const { data: budget } = useQuery(['budget', id], () =>
-    API.budget.fetchBudget(id)
-  );
-  const { data: budgetedCategories } = useQuery(
-    'budgetedCategories',
-    API.budget.fetchBudgetedCategories
-  );
-  const { data: allCategories } = useQuery(
-    'allCategories',
-    API.common.fetchAllCategories
-  );
+  const { data: budget } = useQuery(['budget', id], () => API.budget.fetchBudget(id));
+  const { data: budgetedCategories } = useQuery('budgetedCategories', API.budget.fetchBudgetedCategories);
+  const { data: allCategories } = useQuery('allCategories', API.common.fetchAllCategories);
 
   const filteredBySelectedCategory = useMemo(() => {
     if (typeof selectedCategory === 'undefined') {
@@ -29,8 +21,7 @@ function BudgetTransactionList({ selectedCategory }) {
     if (selectedCategory === null) {
       return budget.transactions.filter((transaction) => {
         const hasBudgetedCategory = budgetedCategories.some(
-          (budgetedCategory) =>
-            budgetedCategory.categoryId === transaction.categoryId
+          (budgetedCategory) => budgetedCategory.categoryId === transaction.categoryId
         );
         return !hasBudgetedCategory;
       });
@@ -38,9 +29,7 @@ function BudgetTransactionList({ selectedCategory }) {
 
     return budget.transactions.filter((transaction) => {
       try {
-        const Category = allCategories.find(
-          (category) => transaction.categoryId === category.id
-        );
+        const Category = allCategories.find((category) => transaction.categoryId === category.id);
 
         const parentCategoryName = Category.parentCategory.name;
 
@@ -49,18 +38,10 @@ function BudgetTransactionList({ selectedCategory }) {
         return false;
       }
     });
-  }, [
-    selectedCategory,
-    budgetedCategories,
-    allCategories,
-    budget.transactions,
-  ]);
+  }, [selectedCategory, budgetedCategories, allCategories, budget.transactions]);
 
   const groupedTransactions = useMemo(
-    () =>
-      groupBy(filteredBySelectedCategory, (transaction) =>
-        new Date(transaction.date).getUTCDate()
-      ),
+    () => groupBy(filteredBySelectedCategory, (transaction) => new Date(transaction.date).getUTCDate()),
     [filteredBySelectedCategory]
   );
 
@@ -68,10 +49,7 @@ function BudgetTransactionList({ selectedCategory }) {
     <List>
       {Object.entries(groupedTransactions).map(([key, transactions]) => (
         <li key={key}>
-          <TransactionItem
-            transactions={transactions}
-            allCategories={allCategories}
-          />
+          <TransactionItem transactions={transactions} allCategories={allCategories} />
         </li>
       ))}
     </List>

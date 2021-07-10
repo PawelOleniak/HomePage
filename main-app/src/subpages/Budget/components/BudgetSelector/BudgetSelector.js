@@ -6,9 +6,7 @@ import { BudgetContext } from 'subpages/Budget/BudgetContext';
 const BudgetSelector = () => {
   const { setSelectedBudget } = useContext(BudgetContext.Context);
 
-  const { data: budgets } = useQuery('budgets', () =>
-    API.budget.fetchAllBudgets()
-  );
+  const { data: budgets } = useQuery('budgets', () => API.budget.fetchAllBudgets());
   const options = budgets.map((budget) => ({
     value: budget.id,
     label: budget.name,

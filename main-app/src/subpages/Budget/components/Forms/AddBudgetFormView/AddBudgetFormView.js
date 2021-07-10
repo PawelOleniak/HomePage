@@ -9,9 +9,7 @@ export default function AddBudgetFormView() {
   const queryClient = useQueryClient();
   const history = useHistory();
 
-  const { data: budgets } = useQuery('budgets', () =>
-    API.budget.fetchAllBudgets()
-  );
+  const { data: budgets } = useQuery('budgets', () => API.budget.fetchAllBudgets());
   const budgetsMutation = useMutation(API.budget.addBudget, {
     onSuccess: () => {
       queryClient.invalidateQueries('budgets');

@@ -12,13 +12,8 @@ export default function AddCategoryFormView() {
   const { selectedBudget } = useContext(BudgetContext.Context);
   const id = selectedBudget.value;
 
-  const { data: budgets } = useQuery('budgets', () =>
-    API.budget.fetchAllBudgets()
-  );
-  const { data: allCategories } = useQuery(
-    'allCategories',
-    API.common.fetchAllCategories
-  );
+  const { data: budgets } = useQuery('budgets', () => API.budget.fetchAllBudgets());
+  const { data: allCategories } = useQuery('allCategories', API.common.fetchAllCategories);
   const queryClient = useQueryClient();
 
   const categoryMutation = useMutation(API.common.addCategory, {

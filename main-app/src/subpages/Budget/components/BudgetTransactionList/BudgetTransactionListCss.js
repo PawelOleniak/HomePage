@@ -12,8 +12,7 @@ export const ListItem = styled.li`
   flex-direction: ${({ vertical }) => (vertical ? 'column' : 'row')};
   justify-content: space-between;
   > * {
-    border: 1px solid
-      ${({ vertical, theme }) => (vertical ? theme.colors.gray.dark : 'none')};
+    border: 1px solid ${({ vertical, theme }) => (vertical ? theme.colors.gray.dark : 'none')};
     padding: ${({ vertical }) => (vertical ? '10px' : '1px')};
   }
   > *:nth-child(1) {

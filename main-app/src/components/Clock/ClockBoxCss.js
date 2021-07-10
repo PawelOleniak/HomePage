@@ -11,8 +11,8 @@ export const Clock = styled.section`
   height: 6vw;
 
   border: calc(0.9vw + 40px) solid;
-  border-color: transparent ${({ theme }) => theme.colors.gray.light}
-    ${({ theme }) => theme.colors.gray.light} transparent;
+  border-color: transparent ${({ theme }) => theme.colors.gray.light} ${({ theme }) => theme.colors.gray.light}
+    transparent;
   border-radius: 10px;
   transform: rotate(45deg);
 
@@ -25,8 +25,8 @@ export const Clock = styled.section`
     width: 4.5vw;
     height: 4.5vw;
     border: calc(0.9vw + 20px) solid;
-    border-color: transparent ${({ theme }) => theme.colors.gray.dark}
-      ${({ theme }) => theme.colors.gray.dark} transparent;
+    border-color: transparent ${({ theme }) => theme.colors.gray.dark} ${({ theme }) => theme.colors.gray.dark}
+      transparent;
     border-radius: 40%;
   }
 `;

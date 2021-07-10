@@ -1,18 +1,9 @@
 import React, { useMemo } from 'react';
 
-import {
-  ParentCategory as Root,
-  CategoryAmount,
-} from './BudgetCategoryListCss';
+import { ParentCategory as Root, CategoryAmount } from './BudgetCategoryListCss';
 import { formatCurrency } from 'utils';
 import { noop } from 'lodash';
-export default function ParentCategory({
-  name,
-  onClick,
-  categories,
-  transactions,
-  amount,
-}) {
+export default function ParentCategory({ name, onClick, categories, transactions, amount }) {
   const categoryLvalue = useMemo(() => {
     if (!!amount) return null;
 
@@ -26,38 +17,25 @@ export default function ParentCategory({
 
     const parentCategoryTransactions = transactions
       ? transactions.filter((transaction) => {
-          return categories.find(
-            (category) => category.categoryId === transaction.categoryId
-          );
+          return categories.find((category) => category.categoryId === transaction.categoryId);
         })
       : null;
 
     const spentOnParentCategory = parentCategoryTransactions
-      ? parentCategoryTransactions.reduce(
-          (acc, transaction) => acc + transaction.amount,
-          0
-        )
+      ? parentCategoryTransactions.reduce((acc, transaction) => acc + transaction.amount, 0)
       : null;
 
-    const total =
-      budgeted && spentOnParentCategory
-        ? budgeted - spentOnParentCategory
-        : null;
+    const total = budgeted && spentOnParentCategory ? budgeted - spentOnParentCategory : null;
 
     return total;
   }, [categories, transactions, amount]);
 
-  const amountValue = useMemo(
-    () => amount || categoryLvalue,
-    [amount, categoryLvalue]
-  );
+  const amountValue = useMemo(() => amount || categoryLvalue, [amount, categoryLvalue]);
 
   return (
     <Root onClick={onClick}>
       <span>{name}</span>
-      <CategoryAmount negative={amountValue < 0}>
-        {formatCurrency(amountValue)}
-      </CategoryAmount>
+      <CategoryAmount negative={amountValue < 0}>{formatCurrency(amountValue)}</CategoryAmount>
     </Root>
   );
 }

@@ -16,16 +16,9 @@ function Button({ variant, children, ...props }) {
     }
   }, [variant]);
 
-  const content = useMemo(
-    () => <Component {...props}>{children}</Component>,
-    [props, children]
-  );
+  const content = useMemo(() => <Component {...props}>{children}</Component>, [props, children]);
 
-  return to ? (
-    <Link {...props}>{content}</Link>
-  ) : (
-    <Fragment>{content}</Fragment>
-  );
+  return to ? <Link {...props}>{content}</Link> : <Fragment>{content}</Fragment>;
 }
 
 Button.propType = {

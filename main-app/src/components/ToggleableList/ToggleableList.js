@@ -18,12 +18,7 @@ export default function ToggleableList({ items, clickRef }) {
   return (
     <>
       {items.map((item) => (
-        <Item
-          key={item.id}
-          item={item}
-          onClickHandler={setSelectedItem}
-          isActive={selectedItem === item.id}
-        />
+        <Item key={item.id} item={item} onClickHandler={setSelectedItem} isActive={selectedItem === item.id} />
       ))}
     </>
   );

@@ -33,18 +33,10 @@ function App() {
               ]}
               Languages={
                 <div>
-                  <Button
-                    primary
-                    variant="regular"
-                    onClick={() => i18n.changeLanguage('pl')}
-                  >
+                  <Button primary variant="regular" onClick={() => i18n.changeLanguage('pl')}>
                     pl
                   </Button>
-                  <Button
-                    primary
-                    variant="regular"
-                    onClick={() => i18n.changeLanguage('en')}
-                  >
+                  <Button primary variant="regular" onClick={() => i18n.changeLanguage('en')}>
                     en
                   </Button>
                 </div>

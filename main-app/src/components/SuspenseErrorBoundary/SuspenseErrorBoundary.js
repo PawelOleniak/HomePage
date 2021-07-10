@@ -23,9 +23,7 @@ export default function SuspenseErrorBoundary({ ...props }) {
   }
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={Reset}>
-      <React.Suspense fallback={<LoadingIndicator />}>
-        {props.children}
-      </React.Suspense>
+      <React.Suspense fallback={<LoadingIndicator />}>{props.children}</React.Suspense>
     </ErrorBoundary>
   );
 }

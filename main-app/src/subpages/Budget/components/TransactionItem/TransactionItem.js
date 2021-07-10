@@ -3,11 +3,7 @@ import { ListItem } from '../BudgetTransactionList/BudgetTransactionListCss';
 import { formatCurrency, formatDate } from 'utils';
 import { Link } from 'react-router-dom';
 
-export default function TransactionItem({
-  transactions,
-  allCategories,
-  ...props
-}) {
+export default function TransactionItem({ transactions, allCategories, ...props }) {
   const { selected } = props;
   return selected ? (
     <ul
@@ -23,12 +19,7 @@ export default function TransactionItem({
         <div>Date</div>
         <div>Category</div>
       </ListItem>
-      <WrappedItem
-        key={transactions.id}
-        transaction={transactions}
-        allCategories={allCategories}
-        vertical={selected}
-      />
+      <WrappedItem key={transactions.id} transaction={transactions} allCategories={allCategories} vertical={selected} />
     </ul>
   ) : (
     <ul>
@@ -38,11 +29,7 @@ export default function TransactionItem({
           to={'/budget/transactions/' + transaction.id}
           style={{ textDecoration: 'none', color: 'black' }}
         >
-          <WrappedItem
-            key={transaction.id}
-            transaction={transaction}
-            allCategories={allCategories}
-          />
+          <WrappedItem key={transaction.id} transaction={transaction} allCategories={allCategories} />
         </Link>
       ))}
     </ul>
@@ -51,12 +38,7 @@ export default function TransactionItem({
 
 function WrappedItem({ transaction, allCategories, vertical }) {
   const name = useMemo(
-    () =>
-      (
-        allCategories.find(
-          (category) => transaction.categoryId === category.id
-        ) || {}
-      ).name,
+    () => (allCategories.find((category) => transaction.categoryId === category.id) || {}).name,
     [allCategories, transaction]
   );
   return (

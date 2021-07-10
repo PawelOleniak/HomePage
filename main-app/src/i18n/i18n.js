@@ -19,10 +19,8 @@ i18n
     debug: true,
     saveMissing: true,
     backend: {
-      loadPath:
-        'https://cors-anywhere.herokuapp.com/https://api.poeditor.com/v2/terms/list',
-      addPath:
-        'https://cors-anywhere.herokuapp.com/https://api.poeditor.com/v2/terms/add',
+      loadPath: 'https://cors-anywhere.herokuapp.com/https://api.poeditor.com/v2/terms/list',
+      addPath: 'https://cors-anywhere.herokuapp.com/https://api.poeditor.com/v2/terms/add',
       crossDomain: true,
       parse: (data) => {
         const parsedData = JSON.parse(data);
