@@ -2,35 +2,26 @@ import React, { useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
 import { groupBy, noop } from 'lodash';
 import { Input, Select } from '../Templates/InputTemplates';
+import { Button } from 'components';
 
 const required = (value) => (value ? undefined : 'Required');
 
-export default function AddTransactionForm({
-  onSubmit = noop,
-  categories,
-  groupedCategoriesBy,
-}) {
-  const groupedCategoriesByParentName = groupedCategoriesBy
-    ? groupBy(categories, groupedCategoriesBy)
-    : null;
+export default function AddTransactionForm({ onSubmit = noop, categories, groupedCategoriesBy }) {
+  const groupedCategoriesByParentName = groupedCategoriesBy ? groupBy(categories, groupedCategoriesBy) : null;
 
   const categoryItems = useMemo(
     () =>
       groupedCategoriesByParentName
-        ? Object.entries(groupedCategoriesByParentName).map(
-            ([parentName, categories]) => (
-              <optgroup key={parentName} label={parentName}>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </optgroup>
-            )
-          )
-        : categories.map((category) => (
-            <option value={category.id}>{category.name}</option>
-          )),
+        ? Object.entries(groupedCategoriesByParentName).map(([parentName, categories]) => (
+            <optgroup key={parentName} label={parentName}>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </optgroup>
+          ))
+        : categories.map((category) => <option value={category.id}>{category.name}</option>),
     [groupedCategoriesByParentName, categories]
   );
   return (
@@ -38,12 +29,7 @@ export default function AddTransactionForm({
       onSubmit={onSubmit}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
-          <Field
-            name="description"
-            fieldType={'Description'}
-            validate={required}
-            component={Input}
-          />
+          <Field name="description" fieldType={'Description'} validate={required} component={Input} />
 
           <Field
             name="amount"
@@ -63,24 +49,21 @@ export default function AddTransactionForm({
             description={'Category'}
           />
 
-          <Field
-            name="date"
-            fieldType={'Date'}
-            validate={required}
-            component={Input}
-          />
+          <Field name="date" fieldType={'Date'} validate={required} component={Input} />
 
           <div className="buttons">
-            <button type="submit" disabled={submitting}>
-              Submit
-            </button>
-            <button
+            <Button
               type="button"
+              variant={'inline'}
+              style={{ marginRight: '30px' }}
               onClick={form.reset}
               disabled={submitting || pristine}
             >
               Reset
-            </button>
+            </Button>
+            <Button type="submit" variant={'inline'} primary disabled={submitting}>
+              Submit
+            </Button>
           </div>
         </form>
       )}

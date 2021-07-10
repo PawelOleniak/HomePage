@@ -20,7 +20,7 @@ export const Content = styled.div`
   width: fit-content;
   height: fit-content;
   box-shadow: ${({ theme }) => `0 5px 10px 2px ${theme.colors.gray.dark}`};
-  padding: 20px;
+  padding: 25px 50px;
   text-align: center;
   border-radius: 15px;
 `;

@@ -5,6 +5,7 @@ import {
   CategoryAmount,
 } from './BudgetCategoryListCss';
 import { formatCurrency } from 'utils';
+import { noop } from 'lodash';
 export default function ParentCategory({
   name,
   onClick,
@@ -23,18 +24,25 @@ export default function ParentCategory({
       }
     })();
 
-    const parentCategoryTransactions = transactions.filter((transaction) => {
-      return categories.find(
-        (category) => category.categoryId === transaction.categoryId
-      );
-    });
+    const parentCategoryTransactions = transactions
+      ? transactions.filter((transaction) => {
+          return categories.find(
+            (category) => category.categoryId === transaction.categoryId
+          );
+        })
+      : null;
 
-    const spentOnParentCategory = parentCategoryTransactions.reduce(
-      (acc, transaction) => acc + transaction.amount,
-      0
-    );
+    const spentOnParentCategory = parentCategoryTransactions
+      ? parentCategoryTransactions.reduce(
+          (acc, transaction) => acc + transaction.amount,
+          0
+        )
+      : null;
 
-    const total = budgeted ? budgeted - spentOnParentCategory : null;
+    const total =
+      budgeted && spentOnParentCategory
+        ? budgeted - spentOnParentCategory
+        : null;
 
     return total;
   }, [categories, transactions, amount]);

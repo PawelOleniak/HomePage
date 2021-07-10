@@ -11,13 +11,8 @@ export default function AddTransactionFormView() {
 
   const { selectedBudget } = useContext(BudgetContext.Context);
   const id = selectedBudget.value;
-  const { data: budget } = useQuery(['budget', id], () =>
-    API.budget.fetchBudget(id)
-  );
-  const { data: allCategories } = useQuery(
-    'allCategories',
-    API.common.fetchAllCategories
-  );
+  const { data: budget } = useQuery(['budget', id], () => API.budget.fetchBudget(id));
+  const { data: allCategories } = useQuery('allCategories', API.common.fetchAllCategories);
   const queryClient = useQueryClient();
 
   const mutation = useMutation(API.budget.addTransaction, {

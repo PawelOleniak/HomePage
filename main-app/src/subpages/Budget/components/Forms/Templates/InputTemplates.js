@@ -1,32 +1,23 @@
-export function Input({
-  input,
-  meta,
-  fieldType = 'text',
-  step,
-  placeholder,
-  description,
-}) {
+import { InputWrapper } from './InputTemplatesCss';
+
+export function Input({ input, meta, fieldType = 'text', step, placeholder, description }) {
   return (
-    <div>
+    <InputWrapper>
       <label>{description ? description : fieldType}</label>
-      <input
-        {...input}
-        step={step}
-        type={fieldType}
-        placeholder={placeholder ? placeholder : fieldType}
-      />
+
+      <input {...input} step={step} type={fieldType} placeholder={placeholder ? placeholder : fieldType} />
       {meta.error && meta.touched && <span>{meta.error}</span>}
-    </div>
+    </InputWrapper>
   );
 }
 export function Select({ input, meta, options, description, initialValue }) {
   return (
-    <div>
+    <InputWrapper>
       <label>{description}</label>
       <select {...input} initialvalue={initialValue}>
         {options}
       </select>
       {meta.error && meta.touched && <span>{meta.error}</span>}
-    </div>
+    </InputWrapper>
   );
 }

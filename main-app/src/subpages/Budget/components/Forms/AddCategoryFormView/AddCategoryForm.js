@@ -2,25 +2,17 @@ import React, { useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
 import { noop } from 'lodash';
 import { Input, Select } from '../Templates/InputTemplates';
-
+import { Button } from 'components';
 const required = (value) => (value ? undefined : 'Required');
 
-export default function AddCategoryForm({
-  onSubmit = noop,
-  categories,
-  budgets,
-}) {
+export default function AddCategoryForm({ onSubmit = noop, categories, budgets, selectedBudgetId }) {
   const parentCategories = useMemo(
-    () =>
-      categories ? categories.map((category) => category.parentCategory) : null,
+    () => (categories ? categories.map((category) => category.parentCategory) : null),
     [categories]
   );
 
   const parentCategoryOprions = parentCategories
-    .filter(
-      (value, index, array) =>
-        array.findIndex((t) => t.id === value.id) === index
-    )
+    .filter((value, index, array) => array.findIndex((t) => t.id === value.id) === index)
     .map((parentCategory) => (
       <option key={parentCategory.id} value={parentCategory.id}>
         {parentCategory.name}
@@ -32,7 +24,7 @@ export default function AddCategoryForm({
       typeof budgets.length !== 'undefined'
         ? budgets.map((budget) => (
             <option key={budget.id} value={budget.id}>
-              {budget.budget.name}
+              {budget.name}
             </option>
           ))
         : [
@@ -54,16 +46,11 @@ export default function AddCategoryForm({
           <Field
             name="budgetId"
             fieldType="Budget "
-            initialValue={1}
+            initialValue={selectedBudgetId}
             options={budgetsOptions}
             component={Select}
           />
-          <Field
-            name="name"
-            fieldType="Category name "
-            validate={required}
-            component={Input}
-          />
+          <Field name="name" fieldType="Category name " validate={required} component={Input} />
           <div>
             {!values.newParentCategory && [
               <Field
@@ -103,17 +90,18 @@ export default function AddCategoryForm({
           ]}
 
           <div className="buttons">
-            <button type="submit" disabled={submitting}>
-              Submit
-            </button>
-            <button
+            <Button
               type="button"
+              variant={'inline'}
+              style={{ marginRight: '30px' }}
               onClick={form.reset}
               disabled={submitting || pristine}
             >
               Reset
-            </button>
-
+            </Button>
+            <Button type="submit" variant={'inline'} primary disabled={submitting}>
+              Submit
+            </Button>
             <pre>{JSON.stringify(values, 0, 2)}</pre>
           </div>
         </form>

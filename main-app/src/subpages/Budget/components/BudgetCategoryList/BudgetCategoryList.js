@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useMemo, useCallback, useContext } from 'react';
 import { connect } from 'react-redux';
 import { groupBy, noop } from 'lodash';
@@ -22,12 +23,14 @@ function BudgetCategoryList({ selectCategory }) {
     ['budget', id],
     () => API.budget.fetchBudget(id)
   );
+
   const { isFetching: budgetedCategoriesisFetching, data: budgetedCategories } =
     useQuery('budgetedCategories', API.budget.fetchBudgetedCategories);
   const { isFetching: allCategoriesisFetching, data: allCategories } = useQuery(
     'allCategories',
     API.common.fetchAllCategories
   );
+
   const isFetching =
     budgetisFetching || budgetedCategoriesisFetching || allCategoriesisFetching;
 
@@ -41,21 +44,25 @@ function BudgetCategoryList({ selectCategory }) {
     handleClickParentCategoryRef.current();
   }, [selectCategory, handleClickParentCategoryRef]);
 
+  const categoriesFilteredByBudget = budgetedCategories.filter(
+    (category) => category.budgetId === id
+  );
+
   const BudgetedCategoriesByParent = useMemo(
-    !isFetching
+    !isFetching && categoriesFilteredByBudget
       ? () =>
           groupBy(
-            budgetedCategories,
+            categoriesFilteredByBudget,
             (item) =>
               allCategories.find((category) => category.id === item.categoryId)
                 .parentCategory.name
           )
       : noop,
-    [budgetedCategories, allCategories, isFetching]
+    [categoriesFilteredByBudget, allCategories, isFetching]
   );
 
   const listItems = useMemo(
-    !isFetching
+    !isFetching && BudgetedCategoriesByParent
       ? () =>
           Object.entries(BudgetedCategoriesByParent).map(
             ([parentName, categories]) => ({

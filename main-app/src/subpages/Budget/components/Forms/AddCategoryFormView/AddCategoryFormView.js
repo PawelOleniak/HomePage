@@ -11,8 +11,9 @@ export default function AddCategoryFormView() {
 
   const { selectedBudget } = useContext(BudgetContext.Context);
   const id = selectedBudget.value;
-  const { data: budget } = useQuery(['budget', id], () =>
-    API.budget.fetchBudget(id)
+
+  const { data: budgets } = useQuery('budgets', () =>
+    API.budget.fetchAllBudgets()
   );
   const { data: allCategories } = useQuery(
     'allCategories',
@@ -72,13 +73,14 @@ export default function AddCategoryFormView() {
       })
     );
   }, [allCategories]);
-
+  console.log(budgets);
   return (
     <Modal>
       <AddCategoryForm
         categories={allCategories}
-        budgets={budget}
+        budgets={budgets}
         onSubmit={handleSubmitAddCategory}
+        selectedBudgetId={id}
       />
     </Modal>
   );
