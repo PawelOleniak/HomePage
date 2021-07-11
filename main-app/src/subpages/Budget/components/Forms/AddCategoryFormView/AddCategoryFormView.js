@@ -68,9 +68,8 @@ export default function AddCategoryFormView() {
       })
     );
   }, [allCategories]);
-  console.log(budgets);
   return (
-    <Modal>
+    <Modal isStatic>
       <AddCategoryForm
         categories={allCategories}
         budgets={budgets}

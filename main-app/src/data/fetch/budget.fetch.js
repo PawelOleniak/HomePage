@@ -66,3 +66,14 @@ export const addBudget = ({ data }) => {
   });
   return promise;
 };
+
+export const deleteTransaction = async ({ transactionId }) => {
+  const baseURL = `${apiURL}/transactions/${transactionId}`;
+  const response = await fetch(baseURL, {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json',
+    },
+  });
+  return await response.json();
+};

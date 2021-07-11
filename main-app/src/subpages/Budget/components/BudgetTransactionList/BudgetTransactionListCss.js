@@ -27,4 +27,17 @@ export const ListItem = styled.li`
   > *:nth-child(4) {
     flex: 3;
   }
+  > *:nth-child(5) {
+    flex: 1;
+    flex-direction: row;
+    > * {
+      background-color: rgb(250, 120, 0, 0.3);
+      border-radius: 50%;
+      :hover {
+        background-color: rgb(250, 40, 0, 0.7);
+      }
+    }
+    margin: auto;
+    height: fit-content;
+  }
 `;

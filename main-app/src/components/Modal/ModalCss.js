@@ -17,8 +17,8 @@ export const Content = styled.div`
   background: #fff;
   position: absolute;
   margin: auto;
-  width: fit-content;
-  height: fit-content;
+  width: ${({ isStatic }) => (isStatic ? '250px' : 'fit-content')};
+  height: ${({ isStatic }) => (isStatic ? '310px' : 'fit-content')};
   box-shadow: ${({ theme }) => `0 5px 10px 2px ${theme.colors.gray.dark}`};
   padding: 25px 50px;
   text-align: center;

@@ -18,3 +18,9 @@ export const InputWrapper = styled.div`
     }
   }
 `;
+
+export const CheckboxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;

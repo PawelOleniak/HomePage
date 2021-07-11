@@ -92,19 +92,18 @@ function BudgetCategoryList({ selectCategory }) {
     () => budget.transactions.reduce((acc, transaction) => acc + transaction.amount, 0),
     [budget.transactions]
   );
-
   const restToSpent = useMemo(() => budget.totalAmount - totalSpent, [totalSpent, budget.totalAmount]);
   const amountTaken = useMemo(
     () =>
-      budgetedCategories.reduce((acc, budgetedCategory) => {
+      categoriesFilteredByBudget.reduce((acc, budgetedCategory) => {
         const categoryTransactions = budget.transactions.filter(
           (transaction) => transaction.CategoryId === budgetedCategory.id
         );
         const categoryExpenses = categoryTransactions.reduce((acc, transaction) => acc + transaction.amount, 0);
 
-        return acc + Math.max(categoryExpenses, budgetedCategory.amount);
+        return acc + Math.max(categoryExpenses, budgetedCategory.budget);
       }, 0),
-    [budget.transactions, budgetedCategories]
+    [budget.transactions, categoriesFilteredByBudget]
   );
 
   const notBudgetedTransactions = useMemo(

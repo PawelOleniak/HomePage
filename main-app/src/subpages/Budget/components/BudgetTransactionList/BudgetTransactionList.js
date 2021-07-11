@@ -14,13 +14,15 @@ function BudgetTransactionList({ selectedCategory }) {
   const { data: budgetedCategories } = useQuery('budgetedCategories', API.budget.fetchBudgetedCategories);
   const { data: allCategories } = useQuery('allCategories', API.common.fetchAllCategories);
 
+  const selectedBudgetCategories = budgetedCategories.filter((category) => category.budgetId === id);
+
   const filteredBySelectedCategory = useMemo(() => {
     if (typeof selectedCategory === 'undefined') {
       return budget.transactions;
     }
     if (selectedCategory === null) {
       return budget.transactions.filter((transaction) => {
-        const hasBudgetedCategory = budgetedCategories.some(
+        const hasBudgetedCategory = selectedBudgetCategories.some(
           (budgetedCategory) => budgetedCategory.categoryId === transaction.categoryId
         );
         return !hasBudgetedCategory;
@@ -38,7 +40,7 @@ function BudgetTransactionList({ selectedCategory }) {
         return false;
       }
     });
-  }, [selectedCategory, budgetedCategories, allCategories, budget.transactions]);
+  }, [selectedCategory, allCategories, budget.transactions, selectedBudgetCategories]);
 
   const groupedTransactions = useMemo(
     () => groupBy(filteredBySelectedCategory, (transaction) => new Date(transaction.date).getUTCDate()),

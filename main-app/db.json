@@ -15,10 +15,6 @@
     {
       "id": "5",
       "name": "Entertainment"
-    },
-    {
-      "id": "6",
-      "name": "asd"
     }
   ],
   "categories": [
@@ -64,52 +60,63 @@
     },
     {
       "id": "9",
-      "name": "qwerty",
-      "parentCategoryId": "6"
+      "name": "my my",
+      "parentCategoryId": "1"
+    },
+    {
+      "id": "10",
+      "name": "qwer",
+      "parentCategoryId": "1"
     }
   ],
   "budgetCategories": [
     {
       "id": "1",
-      "amount": 120.5,
+      "budget": 120,
       "categoryId": "1",
       "budgetId": "5"
     },
     {
       "id": "2",
-      "amount": 39.99,
+      "budget": 40,
       "categoryId": "2",
       "budgetId": "5"
     },
     {
       "id": "3",
-      "amount": 723,
+      "budget": 700,
       "categoryId": "3",
       "budgetId": "5"
     },
     {
       "id": "4",
-      "amount": 30,
+      "budget": 30,
       "categoryId": "4",
       "budgetId": "5"
     },
     {
       "id": "5",
-      "amount": 450,
+      "budget": 450,
       "categoryId": "5",
       "budgetId": "5"
     },
     {
       "id": "6",
-      "amount": 80,
+      "budget": 100,
       "categoryId": "6",
       "budgetId": "5"
     },
     {
       "id": "9",
-      "budget": 777,
+      "budget": 100,
       "categoryId": "9",
-      "budgetId": "6"
+      "budgetId": "8"
+    },
+    {
+      "id": "10",
+      "budget": 50,
+      "categoryId": "10",
+      "budgetId": "8"
     }
   ],
   "budgets": [
@@ -134,110 +141,52 @@
       "totalAmount": 2500
     }
   ],
-  "transactions": [
-    {
-      "id": "1",
-      "description": "Internet provider",
-      "amount": 120.47,
-      "categoryId": "1",
-      "date": "2019-12-15T20:39:41.768Z",
-      "budgetId": "5"
-    },
-    {
-      "id": "2",
-      "description": "Mobile network provider",
-      "amount": 39.99,
-      "categoryId": "2",
-      "date": "2019-12-10T13:33:21.768Z",
-      "budgetId": "5"
-    },
-    {
-      "id": "3",
-      "description": "Weekly shoping",
-      "amount": 23.88,
-      "categoryId": "6",
-      "date": "2019-12-17T15:41:01.768Z",
-      "budgetId": "5"
-    },
-    {
-      "id": "4",
-      "description": "Weekly shoping #2",
-      "amount": 12.48,
-      "categoryId": "6",
-      "date": "2019-12-17T12:41:01.768Z",
-      "budgetId": "5"
-    },
-    {
-      "id": "5",
-      "description": "Dinner in a restaurant",
-      "amount": 35.68,
-      "categoryId": "null",
-      "date": "2019-12-22T15:33:11.768Z",
-      "budgetId": "5"
-    },
-    {
-      "id": "5",
-      "description": "Grocery shopping #1",
-      "amount": 12.38,
-      "categoryId": "5",
-      "date": "2019-12-18T13:38:41.768Z",
-      "budgetId": "5"
-    },
-    {
-      "description": "Default Agile Workflow",
-      "amount": 123,
-      "categoryId": "7",
-      "date": "2020-02-13",
-      "budgetId": "5",
-      "id": "p1tYW2Q"
-    },
-    {
-      "description": "My new transaction",
-      "amount": 12,
-      "categoryId": "4",
-      "date": "2021-07-06",
-      "budgetId": "5",
-      "id": "GYgAXL7"
-    },
-    {
-      "description": "My new transaction",
-      "amount": 123,
-      "categoryId": "9",
-      "date": "2021-07-09",
-      "budgetId": "6",
-      "id": "bcHszzJ"
-    },
-    {
-      "description": "My new transaction2",
-      "amount": 44,
-      "categoryId": "8",
-      "date": "2021-07-08",
-      "budgetId": "8",
-      "id": "kMxQfug"
-    },
-    {
-      "description": "My new transaction",
-      "categoryId": "2",
-      "amount": 11,
-      "date": "2021-07-09",
-      "budgetId": "8",
-      "id": "r8UAfB2"
-    },
-    {
-      "description": "as",
-      "amount": 77,
-      "categoryId": "7",
-      "date": "2021-07-09",
-      "budgetId": "8",
-      "id": "6eTEXn2"
-    },
-    {
-      "description": "as",
-      "amount": 555,
-      "categoryId": "2",
-      "date": "2021-07-10",
-      "budgetId": "5",
-      "id": "hpfnbot"
-    }
-  ]
+  "transactions": [{
+    "id": "1",
+    "description": "Internet provider",
+    "amount": 100,
+    "categoryId": "1",
+    "date": "2019-12-15T20:39:41.768Z",
+    "budgetId": "5"
+  },
+  {
+    "id": "2",
+    "description": "Mobile network provider",
+    "amount": 40,
+    "categoryId": "2",
+    "date": "2019-12-10T13:33:21.768Z",
+    "budgetId": "5"
+  },
+  {
+    "id": "3",
+    "description": "Weekly shoping",
+    "amount": 25,
+    "categoryId": "6",
+    "date": "2019-12-17T15:41:01.768Z",
+    "budgetId": "5"
+  },
+  {
+    "id": "4",
+    "description": "Weekly shoping #2",
+    "amount": 10,
+    "categoryId": "6",
+    "date": "2019-12-17T12:41:01.768Z",
+    "budgetId": "5"
+  },
+  {
+    "id": "5",
+    "description": "Grocery shopping #1",
+    "amount": 10,
+    "categoryId": "5",
+    "date": "2019-12-18T13:38:41.768Z",
+    "budgetId": "5"
+  },
+  {
+    "description": "Default Agile Workflow",
+    "amount": 100,
+    "categoryId": "7",
+    "date": "2020-02-13",
+    "budgetId": "5",
+    "id": "6"
+  }]
 }

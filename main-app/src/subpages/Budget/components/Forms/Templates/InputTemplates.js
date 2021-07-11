@@ -1,11 +1,18 @@
 import { InputWrapper } from './InputTemplatesCss';
 
-export function Input({ input, meta, fieldType = 'text', step, placeholder, description }) {
+export function Input({ input, meta, fieldType = 'text', step, placeholder, description, disabled }) {
   return (
     <InputWrapper>
       <label>{description ? description : fieldType}</label>
 
-      <input {...input} step={step} type={fieldType} placeholder={placeholder ? placeholder : fieldType} />
+      <input
+        {...input}
+        step={step}
+        disabled={disabled}
+        defaultValue={'Reset'}
+        type={disabled ? 'clear' : fieldType}
+        placeholder={placeholder ? placeholder : fieldType}
+      />
       {meta.error && meta.touched && <span>{meta.error}</span>}
     </InputWrapper>
   );

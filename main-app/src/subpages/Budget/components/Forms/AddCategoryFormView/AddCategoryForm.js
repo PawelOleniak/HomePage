@@ -3,6 +3,7 @@ import { Form, Field } from 'react-final-form';
 import { noop } from 'lodash';
 import { Input, Select } from '../Templates/InputTemplates';
 import { Button } from 'components';
+import { CheckboxWrapper } from '../Templates/InputTemplatesCss';
 const required = (value) => (value ? undefined : 'Required');
 
 export default function AddCategoryForm({ onSubmit = noop, categories, budgets, selectedBudgetId }) {
@@ -42,8 +43,16 @@ export default function AddCategoryForm({ onSubmit = noop, categories, budgets, 
       onSubmit={onSubmit}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
-          <label>Budget</label>
+          <CheckboxWrapper>
+            <label>New </label>
+            <Field name="newParentCategory" component="input" type="checkbox" />
+
+            <label>New budgeted category </label>
+            <Field name="budgeted" component="input" type="checkbox" />
+          </CheckboxWrapper>
+
           <Field
+            description="Budget"
             name="budgetId"
             fieldType="Budget "
             initialValue={selectedBudgetId}
@@ -51,30 +60,24 @@ export default function AddCategoryForm({ onSubmit = noop, categories, budgets, 
             component={Select}
           />
           <Field name="name" fieldType="Category name " validate={required} component={Input} />
-          <div>
-            {!values.newParentCategory && [
-              <Field
-                name="parentCategoryId"
-                description="Parent category"
-                options={parentCategoryOprions}
-                initialValue={'1'}
-                component={Select}
-              />,
-            ]}
-            {values.newParentCategory && [
-              <Field
-                name="newParentCategoryName"
-                description="New parent category Name"
-                placeholder="Name"
-                component={Input}
-              />,
-            ]}
-            <label>New </label>
-            <Field name="newParentCategory" component="input" type="checkbox" />
-          </div>
 
-          <label>Budgeted </label>
-          <Field name="budgeted" component="input" type="checkbox" />
+          {!values.newParentCategory && [
+            <Field
+              name="parentCategoryId"
+              description="Parent category"
+              options={parentCategoryOprions}
+              initialValue={'1'}
+              component={Select}
+            />,
+          ]}
+          {values.newParentCategory && [
+            <Field
+              name="newParentCategoryName"
+              description="New parent category Name"
+              placeholder="Name"
+              component={Input}
+            />,
+          ]}
 
           {values.budgeted && [
             <Field
@@ -102,7 +105,6 @@ export default function AddCategoryForm({ onSubmit = noop, categories, budgets, 
             <Button type="submit" variant={'inline'} primary disabled={submitting}>
               Submit
             </Button>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
           </div>
         </form>
       )}
