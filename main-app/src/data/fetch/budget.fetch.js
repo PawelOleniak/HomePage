@@ -1,4 +1,4 @@
-const apiURL = process.env.REACT_APP_API_URL;
+const apiURL = process.env.REACT_APP_API_URL || 'https://homebudget1data.herokuapp.com';
 
 export const fetchBudget = async (id) => {
   const baseURL = `${apiURL}/budgets/${id}/?_embed=transactions`;

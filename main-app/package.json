@@ -2,6 +2,7 @@
   "name": "main-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://paweloleniak.github.io/HomePage",
   "dependencies": {
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
@@ -30,13 +31,15 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": " react-scripts start",
+    "start": "react-scripts start",
     "build": " react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start:db": "json-server --watch db.json --port 3001",
     "format:prettier": "prettier --write \"{,!(node_modules)/**/}*.{js,jsx}\"",
-    "format:eslint": "eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\""
+    "format:eslint": "eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
