@@ -1,4 +1,4 @@
-const apiURL = process.env.REACT_APP_API_URL || 'https://homebudget1data.herokuapp.com';
+const apiURL = 'https://homebudget1data.herokuapp.com';
 
 export const fetchAllCategories = async () => {
   const response = await fetch(`${apiURL}/categories/?_expand=parentCategory`);
