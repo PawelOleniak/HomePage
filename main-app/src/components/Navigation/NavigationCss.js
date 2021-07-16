@@ -6,6 +6,10 @@ export const Header = styled.header`
   padding: ${({ theme }) => theme.spacing.med}px 0;
   justify-content: space-between;
   box-shadow: 0px 0px 12px 4px darkgray;
+  * {
+    font-size: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '11px' : '16px')};
+    transition: 0.3s ease;
+  }
 `;
 
 export const List = styled.ul`
@@ -17,6 +21,6 @@ export const NavigationWrapper = styled(Wrapper)`
 `;
 
 export const NavLi = styled.li`
-  margin: 0 15px;
+  margin: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '0 0px 0 16px' : '0 16px')};
   z-index: 10;
 `;

@@ -5,7 +5,7 @@ export const Clock = styled.section`
   content: '';
   display: block;
   position: fixed;
-  top: calc(-4vw + 5px);
+  top: ${({ isTabletOrMobile }) => (isTabletOrMobile ? 'calc(-4vw - 2px)' : 'calc(-4vw + 5px)')};
   left: calc(45vw - 45px);
   width: 6vw;
   height: 6vw;
@@ -35,13 +35,13 @@ export const IMG = styled.section`
   box-shadow: 23px 25px 60px 30px ${({ isDay }) => (isDay ? 'orange' : 'blue')};
   display: block;
   position: fixed;
-  top: 31px;
+  top: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '22px' : '31px')};
   left: calc(48.9vw - 30px);
 
-  img {
+  .icon {
     width: calc(8px + ${({ isDay }) => (isDay ? '3.2vw' : '1.9vw')});
     position: absolute;
-    top: ${({ isDay }) => (isDay ? '5px' : '15px')};
+    top: ${({ isDay }) => (isDay ? '8px' : '12px')};
     left: calc(22px - ${({ isDay }) => (isDay ? '1.7vw' : '1vw')});
     animation: ${({ isDay }) => (isDay ? 'spin' : 'cradle')} infinite 5s linear;
   }

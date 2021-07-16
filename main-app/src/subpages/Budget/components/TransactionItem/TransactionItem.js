@@ -66,7 +66,6 @@ function WrappedItem({ transaction, allCategories, vertical }) {
     [allCategories, transaction]
   );
   const transactionId = transaction.id;
-  console.log(transactionId);
   return (
     <ListItem vertical={vertical}>
       <div>{transaction.description}</div>

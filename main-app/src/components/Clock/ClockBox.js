@@ -1,18 +1,19 @@
-import React, { Fragment } from 'react';
+import React, { useContext } from 'react';
 import { Clock, IMG } from './ClockBoxCss';
-import Sun from './sun.png';
-import Moon from './moon.png';
 import Timer from './Timer';
-
-function ClockBox({ isDay }) {
+import { HiSun } from 'react-icons/hi';
+import { FaMoon } from 'react-icons/fa';
+import { Context } from 'Context';
+function ClockBox() {
+  const { isDay, isBigScreen, isTabletOrMobile } = useContext(Context);
   return (
-    <Fragment>
-      <IMG isDay={isDay}>
-        <Clock />
-        {isDay ? <img src={Sun} alt="" /> : <img src={Moon} alt="" />}
-        <Timer />
+    <>
+      <IMG isDay={isDay} isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile}>
+        <Clock isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile} />
+        {isDay ? <HiSun className="icon" size={40} /> : <FaMoon className="icon" size={25} />}
+        <Timer isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile} />
       </IMG>
-    </Fragment>
+    </>
   );
 }
 export default ClockBox;

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Header, List, NavigationWrapper, NavLi } from './NavigationCss';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -8,15 +8,16 @@ import { Clockbox } from 'components/Clock';
 import Provider, { Context } from 'Context';
 function Navigation({ items = [], Languages }) {
   const { t } = useTranslation();
-  const { isDay } = useContext(Context);
+  const { isBigScreen, isTabletOrMobile } = useContext(Context);
+
   return (
-    <Fragment>
+    <>
       <Provider>
-        <Header isDay={isDay}>
+        <Header isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile}>
           <NavigationWrapper>
             <List>
               {items.map((item) => (
-                <NavLi key={item.to}>
+                <NavLi key={item.to} isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile}>
                   <Button primary="true" to={item.to}>
                     {t(item.content)}
                   </Button>
@@ -25,10 +26,10 @@ function Navigation({ items = [], Languages }) {
             </List>
             {Languages}
           </NavigationWrapper>
-          <Clockbox isDay={isDay} />
+          <Clockbox />
         </Header>
       </Provider>
-    </Fragment>
+    </>
   );
 }
 

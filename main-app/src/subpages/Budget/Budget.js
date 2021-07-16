@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Grid } from './BudgetCss';
 import { BudgetSelector } from './components/BudgetSelector';
@@ -12,11 +12,13 @@ import {
   AddCategoryFormView,
 } from 'subpages/Budget/components';
 import { BudgetContext } from './BudgetContext';
+import { Context } from 'Context';
 
 export default function Budget() {
+  const { isBigScreen, isTabletOrMobile } = useContext(Context);
   return (
     <BudgetContext.ContextProvider>
-      <Grid>
+      <Grid isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile}>
         <section>
           <BudgetSelector />
           <Button to="/budget/new">Add new Budget</Button>

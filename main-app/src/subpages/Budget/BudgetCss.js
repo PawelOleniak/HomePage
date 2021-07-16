@@ -14,4 +14,8 @@ export const Grid = styled.div`
     flex: 17;
     margin-right: 4vw;
   }
+  * {
+    font-size: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '12px' : '16px')};
+    transition: 0.3s ease;
+  }
 `;
