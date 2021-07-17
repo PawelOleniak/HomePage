@@ -10,7 +10,7 @@ function ClockBox() {
     <>
       <IMG isDay={isDay} isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile}>
         <Clock isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile} />
-        {isDay ? <HiSun className="icon" size={40} /> : <FaMoon className="icon" size={25} />}
+        {isDay ? <HiSun className="icon" size={40} /> : <FaMoon className="icon" size={40} />}
         <Timer isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile} />
       </IMG>
     </>

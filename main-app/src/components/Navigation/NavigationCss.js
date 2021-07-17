@@ -10,6 +10,14 @@ export const Header = styled.header`
     font-size: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '11px' : '16px')};
     transition: 0.3s ease;
   }
+  > :nth-child(2) {
+    * {
+      position: 0 absolute;
+      left: calc(50% - 6vw);
+    }
+    position: absolute;
+    left: 50%;
+  }
 `;
 
 export const List = styled.ul`

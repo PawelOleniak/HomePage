@@ -10,7 +10,7 @@ import { selectCategory } from 'data/actions/budgetActions';
 import 'styled-components/macro';
 import { useQuery } from 'react-query';
 import API from 'data/fetch';
-import { SuspenseErrorBoundary } from 'components';
+import { LoadingIndicator, SuspenseErrorBoundary } from 'components';
 import { BudgetContext } from 'subpages/Budget/BudgetContext';
 
 function BudgetCategoryList({ selectCategory }) {
@@ -142,7 +142,7 @@ function BudgetCategoryList({ selectCategory }) {
       </div>
     </SuspenseErrorBoundary>
   ) : (
-    <div></div>
+    <LoadingIndicator />
   );
 }
 

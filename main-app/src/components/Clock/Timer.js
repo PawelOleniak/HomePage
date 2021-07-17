@@ -10,12 +10,12 @@ function Timer({ isTabletOrMobile, isBigScreen }) {
   );
 }
 const TimerText = styled.h2`
-  position: fixed;
+  position: absolute;
   z-index: 15;
-  margin-top: calc(32px + 1.1vw);
+  margin-top: calc(24px + 2vw);
   background: transparent;
   font-family: 'arial';
-  left: ${({ isTabletOrMobile }) => (isTabletOrMobile ? 'calc(49vw - 20px)' : 'calc(49vw - 27px)')};
+  margin-left: calc(3.5vw + 28px);
 `;
 
 const Time = (current) => {

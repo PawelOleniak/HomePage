@@ -1,10 +1,10 @@
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
-
 const Root = styled.div`
   position: absolute;
-  width: 150px;
-  height: 150px;
-  margin: 40vh 0 0 40vw;
+  width: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '10px' : '2vw')};
+  height: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '10px' : '2vh')};
+  margin: ${({ isCentered }) => (isCentered ? '40vh 45vw' : '30px')};
 `;
 const Content = styled.div`
   content: ' ';
@@ -14,7 +14,7 @@ const Content = styled.div`
   height: 0;
 
   box-sizing: border-box;
-  border: 72px solid ${({ theme }) => theme.colors.react_default.logo};
+  border: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '40px' : '10vh')} solid;
   border-color: ${({ theme }) => theme.colors.react_default.logo} transparent
     ${({ theme }) => theme.colors.react_default.logo} transparent;
   animation: hourglass 1.2s infinite;
@@ -34,10 +34,11 @@ const Content = styled.div`
   }
 `;
 
-function LoadingIndicator() {
+function LoadingIndicator({ isCentered }) {
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 850 });
   return (
-    <Root>
-      <Content />
+    <Root isCentered={isCentered}>
+      <Content isTabletOrMobile={isTabletOrMobile} />
     </Root>
   );
 }

@@ -13,7 +13,7 @@ export const ListItem = styled.li`
   justify-content: space-between;
   > * {
     border: 1px solid ${({ vertical, theme }) => (vertical ? theme.colors.gray.dark : 'none')};
-    padding: ${({ vertical }) => (vertical ? '10px' : '1px')};
+    padding: ${({ vertical }) => (vertical ? '15px' : '10px')};
   }
   > *:nth-child(1) {
     flex: 8;
@@ -29,15 +29,15 @@ export const ListItem = styled.li`
   }
   > *:nth-child(5) {
     flex: 1;
-    flex-direction: row;
+
     > * {
       background-color: rgb(250, 120, 0, 0.3);
-      border-radius: 50%;
+      padding: ${({ vertical }) => (vertical ? '0 30px' : '3px 6px')};
+      border-radius: 20px;
       :hover {
         background-color: rgb(250, 40, 0, 0.7);
       }
     }
-    margin: auto;
     height: fit-content;
   }
 `;

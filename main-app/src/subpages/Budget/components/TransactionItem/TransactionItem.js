@@ -22,6 +22,7 @@ export default function TransactionItem({ transactions, allCategories, ...props 
         <div>Amount</div>
         <div>Date</div>
         <div>Category</div>
+        <div>{selected ? 'Delete transaction ' : null}</div>
       </ListItem>
       <WrappedItem key={transactions.id} transaction={transactions} allCategories={allCategories} vertical={selected} />
     </ul>
@@ -73,8 +74,7 @@ function WrappedItem({ transaction, allCategories, vertical }) {
       <div>{formatDate(transaction.date)}</div>
       <div>{name ? name : 'Uncategorized'}</div>
       <div onClick={(event) => event.preventDefault()}>
-        {vertical ? 'Delete transaction ' : null}
-        <Button variant={'inline'} onClick={handleDeleteTransaction}>
+        <Button variant={'inline'} isBig={vertical} onClick={handleDeleteTransaction}>
           &times;
         </Button>
       </div>

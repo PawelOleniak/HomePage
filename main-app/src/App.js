@@ -68,7 +68,7 @@ function RootApp() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <React.Suspense fallback={<LoadingIndicator />}>
+        <React.Suspense fallback={<LoadingIndicator isCentered />}>
           <App />
         </React.Suspense>
       </ThemeProvider>
