@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { ParentCategory as Root, CategoryAmount } from './BudgetCategoryListCss';
 import { formatCurrency } from 'utils';
-export default function ParentCategory({ name, onClick, categories, transactions, amount }) {
+export default function ParentCategory({ name, onClick, categories, transactions, amount, total }) {
   const categoryLvalue = useMemo(() => {
     const budgeted = (() => {
       try {
@@ -31,7 +31,10 @@ export default function ParentCategory({ name, onClick, categories, transactions
   return (
     <Root onClick={onClick}>
       <span>{name}</span>
-      <CategoryAmount negative={amountValue < 0}>{formatCurrency(amountValue)}</CategoryAmount>
+      <CategoryAmount negative={amountValue < 0}>
+        {typeof total !== 'undefined' ? amountValue : formatCurrency(amountValue)}
+        {total ? ' / ' + formatCurrency(total) : null}
+      </CategoryAmount>
     </Root>
   );
 }

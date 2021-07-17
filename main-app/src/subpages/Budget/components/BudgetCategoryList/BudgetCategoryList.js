@@ -54,7 +54,6 @@ function BudgetCategoryList({ selectCategory }) {
       : noop,
     [categoriesFilteredByBudget, allCategories, isFetching]
   );
-
   const listItems = useMemo(
     !isFetching && BudgetedCategoriesByParent
       ? () =>
@@ -69,11 +68,12 @@ function BudgetCategoryList({ selectCategory }) {
                 }}
                 categories={categories}
                 transactions={budget.transactions}
+                total={categories.reduce((acc, parentCategory) => acc + parentCategory.budget, 0)}
               />
             ),
+
             children: categories.map((budgetedCategory) => {
               const { name } = allCategories.find((category) => category.id === budgetedCategory.categoryId);
-
               return (
                 <CategoryItem
                   key={budgetedCategory.id}
@@ -121,7 +121,7 @@ function BudgetCategoryList({ selectCategory }) {
     () => budget.totalAmount - amountTaken - notBudgetedExpenses,
     [amountTaken, notBudgetedExpenses, budget.totalAmount]
   );
-
+  const xd = budget.totalAmount - amountTaken;
   return listItems && !isFetching ? (
     <SuspenseErrorBoundary>
       <div
@@ -129,7 +129,12 @@ function BudgetCategoryList({ selectCategory }) {
           border-bottom: 5px solid ${({ theme }) => theme.colors.gray.normal};
         `}
       >
-        <ParentCategory name={budget.name} amount={restToSpent} onClick={handleClearCategorySelect} />
+        <ParentCategory
+          name={budget.name}
+          total={budget.totalAmount}
+          amount={restToSpent}
+          onClick={handleClearCategorySelect}
+        />
       </div>
 
       <ToggleableList items={listItems} clickRef={handleClickParentCategoryRef} />
@@ -138,7 +143,12 @@ function BudgetCategoryList({ selectCategory }) {
           border-top: 5px solid ${({ theme }) => theme.colors.gray.normal};
         `}
       >
-        <ParentCategory name={t('Other')} amount={availableForRestCategories} onClick={handleSelectOtherCategory} />
+        <ParentCategory
+          name={t('Other')}
+          amount={availableForRestCategories}
+          onClick={handleSelectOtherCategory}
+          total={xd}
+        />
       </div>
     </SuspenseErrorBoundary>
   ) : (
