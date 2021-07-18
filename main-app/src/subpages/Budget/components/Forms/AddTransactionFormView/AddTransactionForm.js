@@ -29,8 +29,8 @@ export default function AddTransactionForm({ onSubmit = noop, categories, groupe
       <option key={null}> null</option>
     </optgroup>
   );
-  const d = new Date(editedTransaction.date);
-  const editedTransactionDate = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  const d = editedTransaction ? new Date(editedTransaction.date) : null;
+  const editedTransactionDate = editedTransaction ? `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}` : null;
   return (
     <Form
       onSubmit={onSubmit}
