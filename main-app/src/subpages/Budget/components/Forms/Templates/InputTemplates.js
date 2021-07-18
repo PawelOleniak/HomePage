@@ -1,6 +1,6 @@
 import { InputWrapper } from './InputTemplatesCss';
 
-export function Input({ input, meta, fieldType = 'text', step, placeholder, description, disabled }) {
+export function Input({ input, meta, fieldType = 'text', step, placeholder, initialValue, description, disabled }) {
   return (
     <InputWrapper>
       <label>{description ? description : fieldType}</label>
@@ -10,6 +10,7 @@ export function Input({ input, meta, fieldType = 'text', step, placeholder, desc
         step={step}
         disabled={disabled}
         defaultValue={'Reset'}
+        initialvalue={initialValue}
         type={disabled ? 'clear' : fieldType}
         placeholder={placeholder ? placeholder : fieldType}
       />

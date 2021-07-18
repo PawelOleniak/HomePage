@@ -6,7 +6,7 @@ import { Button } from 'components';
 
 const required = (value) => (value ? undefined : 'Required');
 
-export default function AddTransactionForm({ onSubmit = noop, categories, groupedCategoriesBy }) {
+export default function AddTransactionForm({ onSubmit = noop, categories, groupedCategoriesBy, editedTransaction }) {
   const groupedCategoriesByParentName = groupedCategoriesBy ? groupBy(categories, groupedCategoriesBy) : null;
 
   const categoryItems = useMemo(
@@ -24,12 +24,25 @@ export default function AddTransactionForm({ onSubmit = noop, categories, groupe
         : categories.map((category) => <option value={category.id}>{category.name}</option>),
     [groupedCategoriesByParentName, categories]
   );
+  categoryItems.push(
+    <optgroup key={null} label={'Uncategorized'}>
+      <option key={null}> null</option>
+    </optgroup>
+  );
+  const d = new Date(editedTransaction.date);
+  const editedTransactionDate = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
   return (
     <Form
       onSubmit={onSubmit}
       render={({ handleSubmit, form, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
-          <Field name="description" fieldType={'Description'} validate={required} component={Input} />
+          <Field
+            name="description"
+            fieldType={'Description'}
+            validate={required}
+            initialValue={editedTransaction ? editedTransaction.description : null}
+            component={Input}
+          />
 
           <Field
             name="amount"
@@ -38,6 +51,7 @@ export default function AddTransactionForm({ onSubmit = noop, categories, groupe
             fieldType="number"
             parse={(value) => parseFloat(value, 8)}
             placeholder="Amount"
+            initialValue={editedTransaction ? editedTransaction.amount : null}
             component={Input}
           />
 
@@ -45,11 +59,17 @@ export default function AddTransactionForm({ onSubmit = noop, categories, groupe
             name="categoryId"
             component={Select}
             options={categoryItems}
-            validate={required}
+            initialValue={editedTransaction ? editedTransaction.categoryId : null}
             description={'Category'}
           />
 
-          <Field name="date" fieldType={'Date'} validate={required} component={Input} />
+          <Field
+            name="date"
+            fieldType={'Date'}
+            initialValue={editedTransaction ? editedTransactionDate : null}
+            validate={required}
+            component={Input}
+          />
 
           <div className="buttons">
             <Button

@@ -23,6 +23,7 @@ export default function TransactionItem({ transactions, allCategories, ...props 
         <div>Date</div>
         <div>Category</div>
         <div>{selected ? 'Delete transaction ' : null}</div>
+        <div>{selected ? 'Edit transaction ' : null}</div>
       </ListItem>
       <WrappedItem key={transactions.id} transaction={transactions} allCategories={allCategories} vertical={selected} />
     </ul>
@@ -49,13 +50,13 @@ function WrappedItem({ transaction, allCategories, vertical }) {
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(API.budget.deleteTransaction, {
+  const deleteMutation = useMutation(API.budget.deleteTransaction, {
     onSuccess: () => {
       queryClient.invalidateQueries(['budget', id]);
     },
   });
   const handleDeleteTransaction = () => {
-    mutation.mutate({
+    deleteMutation.mutate({
       transactionId: transactionId,
     });
     if (vertical) {
@@ -74,10 +75,15 @@ function WrappedItem({ transaction, allCategories, vertical }) {
       <div>{formatDate(transaction.date)}</div>
       <div>{name ? name : 'Uncategorized'}</div>
       <div onClick={(event) => event.preventDefault()}>
-        <Button variant={'inline'} isBig={vertical} onClick={handleDeleteTransaction}>
-          &times;
+        <Button variant={'inline'} onClick={handleDeleteTransaction}>
+          x
         </Button>
       </div>
+      {vertical ? (
+        <Button variant={'inline'} to={`/budget/transaction/${transaction.id}`}>
+          edit
+        </Button>
+      ) : null}
     </ListItem>
   );
 }

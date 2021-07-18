@@ -13,6 +13,7 @@ import {
 } from 'subpages/Budget/components';
 import { BudgetContext } from './BudgetContext';
 import { Context } from 'Context';
+import EditTransactionFormView from './components/Forms/EditTransactionFormView/EditTransactionFormView';
 
 export default function Budget() {
   const { isBigScreen, isTabletOrMobile } = useContext(Context);
@@ -44,6 +45,9 @@ export default function Budget() {
         </Route>
         <Route path="/budget/category/new">
           <AddCategoryFormView />
+        </Route>
+        <Route path="/budget/transaction/">
+          <EditTransactionFormView />
         </Route>
         <Route path="/budget/transactions">
           <SelectedTransactionModal />

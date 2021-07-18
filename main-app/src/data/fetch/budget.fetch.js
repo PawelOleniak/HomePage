@@ -30,7 +30,17 @@ export const addTransaction = async ({ budgetId, data }) => {
   });
   return await response.json();
 };
-
+export const editTransaction = async ({ budgetId, data, transactionId }) => {
+  const baseURL = `${apiURL}/transactions/${transactionId}`;
+  const response = await fetch(baseURL, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json',
+    },
+  });
+  return await response.json();
+};
 export const addBudgetedCategory = async ({ data }) => {
   const baseURL = `${apiURL}/budgetCategories`;
   const response = await fetch(baseURL, {

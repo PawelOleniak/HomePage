@@ -32,12 +32,24 @@ export const ListItem = styled.li`
 
     > * {
       background-color: rgb(250, 120, 0, 0.3);
-      padding: ${({ vertical }) => (vertical ? '0 30px' : '3px 6px')};
+      padding: ${({ vertical }) => (vertical ? '0 20px' : '3px 6px')};
       border-radius: 20px;
       :hover {
         background-color: rgb(250, 40, 0, 0.7);
+        text-decoration: none;
       }
     }
-    height: fit-content;
+  }
+  > *:nth-child(6) {
+    flex: 1;
+    > * {
+      background-color: rgb(180, 180, 0, 0.6);
+      padding: ${({ vertical }) => (vertical ? '0 20px' : '3px 6px')};
+      border-radius: 20px;
+      :hover {
+        background-color: rgb(220, 220, 0, 0.7);
+        text-decoration: none;
+      }
+    }
   }
 `;
