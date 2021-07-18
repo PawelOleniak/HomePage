@@ -9,7 +9,6 @@ export function Input({ input, meta, fieldType = 'text', step, placeholder, init
         {...input}
         step={step}
         disabled={disabled}
-        defaultValue={'Reset'}
         initialvalue={initialValue}
         type={disabled ? 'clear' : fieldType}
         placeholder={placeholder ? placeholder : fieldType}

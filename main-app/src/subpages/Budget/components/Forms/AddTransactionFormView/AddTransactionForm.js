@@ -25,12 +25,16 @@ export default function AddTransactionForm({ onSubmit = noop, categories, groupe
     [groupedCategoriesByParentName, categories]
   );
   categoryItems.push(
-    <optgroup key={null} label={'Uncategorized'}>
-      <option key={null}> null</option>
+    <optgroup key={'0'} label={'Uncategorized'}>
+      <option value={'0'} key={'0'}>
+        null
+      </option>
     </optgroup>
   );
   const d = editedTransaction ? new Date(editedTransaction.date) : null;
-  const editedTransactionDate = editedTransaction ? `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}` : null;
+  const editedTransactionDate = editedTransaction
+    ? `${d.getFullYear()}-${d.getMonth() + 1 < 10 ? '0' : ''}${d.getMonth() + 1}-${d.getDate()}`
+    : null;
   return (
     <Form
       onSubmit={onSubmit}
@@ -59,7 +63,7 @@ export default function AddTransactionForm({ onSubmit = noop, categories, groupe
             name="categoryId"
             component={Select}
             options={categoryItems}
-            initialValue={editedTransaction ? editedTransaction.categoryId : null}
+            initialValue={editedTransaction ? editedTransaction.categoryId : '0'}
             description={'Category'}
           />
 
