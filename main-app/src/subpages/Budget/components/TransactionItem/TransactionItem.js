@@ -42,7 +42,7 @@ export default function TransactionItem({ transactions, allCategories, ...props 
       {transactions.map((transaction) => (
         <Link
           key={transaction.id}
-          to={'/budget/transactions/' + transaction.id}
+          to={'/HomePage/budget/transactions/' + transaction.id}
           style={{ textDecoration: 'none', color: 'black' }}
         >
           <WrappedItem key={transaction.id} transaction={transaction} allCategories={allCategories} isPhone={isPhone} />

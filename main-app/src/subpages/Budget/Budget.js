@@ -23,34 +23,34 @@ export default function Budget() {
       <Grid isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile} isPhone={isPhone}>
         <section>
           <BudgetSelector />
-          <Button to="/budget/new">Add new Budget</Button>
+          <Button to="/HomePage/budget/new">Add new Budget</Button>
           <SuspenseErrorBoundary>
             <BudgetCategoryList />
           </SuspenseErrorBoundary>
-          <Button to="/budget/category/new">Add new Category</Button>
+          <Button to="/HomePage/budget/category/new">Add new Category</Button>
         </section>
         <section></section>
         <section>
           <SuspenseErrorBoundary>
-            <Button to="/budget/transactions/new">Add new Transaction</Button>
+            <Button to="/HomePage/budget/transactions/new">Add new Transaction</Button>
             <BudgetTransactionList />
           </SuspenseErrorBoundary>
         </section>
       </Grid>
       <Switch>
-        <Route path="/budget/transactions/new">
+        <Route path="/HomePage/budget/transactions/new">
           <AddTransactionFormView />
         </Route>
-        <Route path="/budget/new">
+        <Route path="/HomePage/budget/new">
           <AddBudgetFormView />
         </Route>
-        <Route path="/budget/category/new">
+        <Route path="/HomePage/budget/category/new">
           <AddCategoryFormView />
         </Route>
-        <Route path="/budget/transaction/">
+        <Route path="/HomePage/budget/transaction/">
           <EditTransactionFormView />
         </Route>
-        <Route path="/budget/transactions">
+        <Route path="/HomePage/budget/transactions">
           <SelectedTransactionModal />
         </Route>
       </Switch>
