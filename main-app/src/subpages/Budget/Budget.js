@@ -16,10 +16,11 @@ import { Context } from 'Context';
 import EditTransactionFormView from './components/Forms/EditTransactionFormView/EditTransactionFormView';
 
 export default function Budget() {
-  const { isBigScreen, isTabletOrMobile } = useContext(Context);
+  const { isBigScreen, isTabletOrMobile, isPhone } = useContext(Context);
+  console.log(isBigScreen);
   return (
     <BudgetContext.ContextProvider>
-      <Grid isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile}>
+      <Grid isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile} isPhone={isPhone}>
         <section>
           <BudgetSelector />
           <Button to="/budget/new">Add new Budget</Button>

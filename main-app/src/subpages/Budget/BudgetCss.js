@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Grid = styled.div`
   display: flex;
-  margin-top: 135px;
+  margin-top: ${({ isBigScreen }) => (isBigScreen ? 'calc(50px + 6vw)' : '135px')};
   section:nth-child(1) {
     flex: 9;
     margin-left: 4vw;
@@ -15,7 +15,8 @@ export const Grid = styled.div`
     margin-right: 4vw;
   }
   * {
-    font-size: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '12px' : '16px')};
+    font-size: ${({ isTabletOrMobile, isPhone }) =>
+      isTabletOrMobile && isPhone ? '9px' : isTabletOrMobile ? '12px' : '16px'};
     transition: 0.3s ease;
   }
 `;

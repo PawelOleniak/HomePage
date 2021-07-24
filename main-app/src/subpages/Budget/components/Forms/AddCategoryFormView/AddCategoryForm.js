@@ -12,13 +12,17 @@ export default function AddCategoryForm({ onSubmit = noop, categories, budgets, 
     [categories]
   );
 
-  const parentCategoryOprions = parentCategories
-    .filter((value, index, array) => array.findIndex((t) => t.id === value.id) === index)
-    .map((parentCategory) => (
-      <option key={parentCategory.id} value={parentCategory.id}>
-        {parentCategory.name}
-      </option>
-    ));
+  const parentCategoryOptions = useMemo(
+    () =>
+      parentCategories
+        .filter((value, index, array) => array.findIndex((t) => t.id === value.id) === index)
+        .map((parentCategory) => (
+          <option key={parentCategory.id} value={parentCategory.id}>
+            {parentCategory.name}
+          </option>
+        )),
+    [parentCategories]
+  );
 
   const budgetsOptions = useMemo(
     () =>
@@ -61,15 +65,16 @@ export default function AddCategoryForm({ onSubmit = noop, categories, budgets, 
           />
           <Field name="name" fieldType="Category name " validate={required} component={Input} />
 
-          {!values.newParentCategory && [
+          {!values.newParentCategory ? (
             <Field
+              key={'parentCategoryId'}
               name="parentCategoryId"
               description="Parent category"
-              options={parentCategoryOprions}
+              options={parentCategoryOptions}
               initialValue={'1'}
               component={Select}
-            />,
-          ]}
+            />
+          ) : null}
           {values.newParentCategory && [
             <Field
               name="newParentCategoryName"

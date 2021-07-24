@@ -7,8 +7,9 @@ export const Context = createContext();
 const Provider = ({ children }) => {
   const minute = new Date().getUTCMinutes();
   const [isDay, setIsDay] = useState(false);
-  const isBigScreen = useMediaQuery({ minDeviceWidth: 1400 });
+  const isBigScreen = useMediaQuery({ minWidth: 1400 });
   const isTabletOrMobile = useMediaQuery({ maxWidth: 850 });
+  const isPhone = useMediaQuery({ maxWidth: 500 });
   const isPortrait = useMediaQuery({ orientation: 'portrait' });
   useEffect(() => {
     checkTime();
@@ -27,6 +28,7 @@ const Provider = ({ children }) => {
     isBigScreen,
     isTabletOrMobile,
     isPortrait,
+    isPhone,
   };
 
   return <Context.Provider value={ContextValue}>{children}</Context.Provider>;

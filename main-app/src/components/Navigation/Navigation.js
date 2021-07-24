@@ -8,16 +8,16 @@ import { Clockbox } from 'components/Clock';
 import Provider, { Context } from 'Context';
 function Navigation({ items = [], Languages }) {
   const { t } = useTranslation();
-  const { isBigScreen, isTabletOrMobile } = useContext(Context);
+  const { isTabletOrMobile, isPhone } = useContext(Context);
 
   return (
     <>
       <Provider>
-        <Header isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile}>
+        <Header isTabletOrMobile={isTabletOrMobile} isPhone={isPhone}>
           <NavigationWrapper>
             <List>
               {items.map((item) => (
-                <NavLi key={item.to} isBigScreen={isBigScreen} isTabletOrMobile={isTabletOrMobile}>
+                <NavLi key={item.to} isTabletOrMobile={isTabletOrMobile} isPhone={isPhone}>
                   <Button primary="true" to={item.to}>
                     {t(item.content)}
                   </Button>

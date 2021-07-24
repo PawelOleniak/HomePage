@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import GlobalStyle from './AppCss';
 import './i18n/i18n';
 import { Navigation, Wrapper, LoadingIndicator, Button } from 'components';
@@ -22,10 +22,10 @@ function App() {
         <Router>
           <Navigation
             items={[
-              { content: 'Homepage', to: '/homepage' },
-              { content: 'Budget', to: '/budget' },
-              { content: 'Schedule', to: '/schedule' },
-              { content: 'Sandbox', to: '/sandbox' },
+              { content: 'Homepage', to: '/HomePage' },
+              { content: 'Budget', to: '/HomePage/budget' },
+              { content: 'Schedule', to: '/HomePage/schedule' },
+              { content: 'Sandbox', to: '/HomePage/sandbox' },
             ]}
             Languages={
               <div>
@@ -40,14 +40,14 @@ function App() {
           />
           <Wrapper>
             <Switch>
-              <Route exact path="/homepage">
+              <Route exact path="/HomePage">
                 Home
               </Route>
-              <Route path="/budget">
+              <Route path="/HomePage/budget">
                 <Budget />
               </Route>
-              <Route path="/schedule">Schedule</Route>
-              <Route path="/sandbox">Sandbox</Route>
+              <Route path="/HomePage/schedule">Schedule</Route>
+              <Route path="/HomePage/sandbox">Sandbox</Route>
             </Switch>
           </Wrapper>
         </Router>

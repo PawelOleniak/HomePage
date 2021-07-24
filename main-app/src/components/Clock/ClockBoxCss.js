@@ -1,27 +1,32 @@
 import styled from 'styled-components';
 
+export const Parent = styled.div`
+  display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  justify-content: center;
+`;
 export const Clock = styled.section`
   box-shadow: 3px 1px 12px 1px lightgray;
-  content: '';
 
   position: fixed;
-  top: ${({ isTabletOrMobile }) => (isTabletOrMobile ? 'calc(-4vw - 2px)' : 'calc(-4vw + 5px)')};
+  top: calc(-3.5vw - 3px);
 
   width: 6vw;
   height: 6vw;
-
   border: calc(0.9vw + 40px) solid;
   border-color: transparent ${({ theme }) => theme.colors.gray.light} ${({ theme }) => theme.colors.gray.light}
     transparent;
   border-radius: 10px;
   transform: rotate(45deg);
-
   &:before {
     content: '';
 
     position: fixed;
-    top: calc(-21.7px);
-    left: calc(-21.7px);
+    top: -21.37px;
+    left: -21.37px;
     width: 4.5vw;
     height: 4.5vw;
     border: calc(0.9vw + 20px) solid;
@@ -32,12 +37,11 @@ export const Clock = styled.section`
 `;
 
 export const IMG = styled.section`
-  box-shadow: 23px 25px 60px 30px ${({ isDay }) => (isDay ? 'orange' : 'blue')};
-  top: ${({ isTabletOrMobile }) => (isTabletOrMobile ? '22px' : '33px')};
   .icon {
-    position: absolute;
-    left: calc(38px - 3.8vw);
-    width: calc(8px + ${({ isDay }) => (isDay ? '3.2vw' : '3.2vw')});
+    transform: rotate(45deg);
+    position: relative;
+    top: calc(20px + 2vw);
+    width: calc(8px + 3.2vw);
     animation: ${({ isDay }) => (isDay ? 'spin' : 'cradle')} infinite 5s linear;
   }
   @keyframes cradle {
@@ -60,4 +64,14 @@ export const IMG = styled.section`
       transform: rotate(360deg);
     }
   }
+`;
+
+export const Shadow = styled.div`
+  box-shadow: 20px 35px 40px 20px ${({ isDay }) => (isDay ? 'orange' : 'blue')};
+`;
+export const TimerText = styled.h2`
+  position: fixed;
+  left: calc(0.5vw - 4px);
+  top: calc(50px + 4vw);
+  font-family: 'arial';
 `;

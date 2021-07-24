@@ -10,24 +10,26 @@ export const ListItem = styled.li`
   padding: ${({ theme }) => theme.spacing.sm}px;
   display: flex;
   flex-direction: ${({ vertical }) => (vertical ? 'column' : 'row')};
-  justify-content: space-between;
+  justify-content: flex-end;
+  font-size: ${({ isPhone }) => (isPhone ? '11px' : '16px')};
+  transition: 0.3s ease;
   > * {
     border: 1px solid ${({ vertical, theme }) => (vertical ? theme.colors.gray.dark : 'none')};
     padding: ${({ vertical }) => (vertical ? '15px' : '10px')};
   }
-  > *:nth-child(1) {
+  .description {
     flex: 8;
   }
-  > *:nth-child(2) {
+  .amount {
     flex: 4;
   }
-  > *:nth-child(3) {
+  .date {
     flex: 6;
   }
-  > *:nth-child(4) {
+  .category {
     flex: 3;
   }
-  > *:nth-child(5) {
+  .delete {
     flex: 1;
 
     > * {
@@ -40,7 +42,7 @@ export const ListItem = styled.li`
       }
     }
   }
-  > *:nth-child(6) {
+  .edit {
     flex: 1;
     > * {
       background-color: rgb(180, 180, 0, 0.6);

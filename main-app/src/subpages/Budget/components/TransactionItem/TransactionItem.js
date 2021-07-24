@@ -6,26 +6,36 @@ import { Link } from 'react-router-dom';
 import { Button } from 'components';
 import { useHistory } from 'react-router-dom';
 import { BudgetContext } from 'subpages/Budget/BudgetContext';
+import { Context } from 'Context';
 import API from 'data/fetch';
+
 export default function TransactionItem({ transactions, allCategories, ...props }) {
   const { selected } = props;
+  const { isPhone } = useContext(Context);
   return selected ? (
     <ul
       style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
+        justifyContent: 'flex-end',
       }}
     >
-      <ListItem key={transactions.description} vertical={selected}>
-        <div>Description</div>
+      <ListItem key={transactions.description} vertical={selected} isPhone={isPhone}>
+        <div>{'Description'}</div>
         <div>Amount</div>
         <div>Date</div>
         <div>Category</div>
-        <div>{selected ? 'Delete transaction ' : null}</div>
-        <div>{selected ? 'Edit transaction ' : null}</div>
+        <div> Delete</div>
+        <div>Edit</div>
       </ListItem>
-      <WrappedItem key={transactions.id} transaction={transactions} allCategories={allCategories} vertical={selected} />
+      <WrappedItem
+        key={transactions.id}
+        transaction={transactions}
+        allCategories={allCategories}
+        vertical={selected}
+        isPhone={isPhone}
+      />
     </ul>
   ) : (
     <ul>
@@ -35,21 +45,20 @@ export default function TransactionItem({ transactions, allCategories, ...props 
           to={'/budget/transactions/' + transaction.id}
           style={{ textDecoration: 'none', color: 'black' }}
         >
-          <WrappedItem key={transaction.id} transaction={transaction} allCategories={allCategories} />
+          <WrappedItem key={transaction.id} transaction={transaction} allCategories={allCategories} isPhone={isPhone} />
         </Link>
       ))}
     </ul>
   );
 }
 
-function WrappedItem({ transaction, allCategories, vertical }) {
+function WrappedItem({ transaction, allCategories, vertical, isPhone }) {
   const history = useHistory();
 
   const { selectedBudget } = useContext(BudgetContext.Context);
   const id = selectedBudget.value;
 
   const queryClient = useQueryClient();
-
   const deleteMutation = useMutation(API.budget.deleteTransaction, {
     onSuccess: () => {
       queryClient.invalidateQueries(['budget', id]);
@@ -69,18 +78,18 @@ function WrappedItem({ transaction, allCategories, vertical }) {
   );
   const transactionId = transaction.id;
   return (
-    <ListItem vertical={vertical}>
-      <div>{transaction.description}</div>
-      <div>{formatCurrency(transaction.amount)}</div>
-      <div>{formatDate(transaction.date)}</div>
-      <div>{name ? name : 'Uncategorized'}</div>
-      <div onClick={(event) => event.preventDefault()}>
+    <ListItem vertical={vertical} isPhone={isPhone}>
+      <div className="description">{transaction.description}</div>
+      <div className="amount">{formatCurrency(transaction.amount)}</div>
+      {!isPhone || vertical ? <div className="date">{formatDate(transaction.date)}</div> : null}
+      <div className="category">{name ? name : 'Uncategorized'}</div>
+      <div className="delete" onClick={(event) => event.preventDefault()}>
         <Button variant={'inline'} onClick={handleDeleteTransaction}>
           x
         </Button>
       </div>
       {vertical ? (
-        <Button variant={'inline'} to={`/budget/transaction/${transaction.id}`}>
+        <Button className="edit" variant={'inline'} to={`/budget/transaction/${transaction.id}`}>
           edit
         </Button>
       ) : null}
